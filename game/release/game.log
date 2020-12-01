@@ -1,0 +1,127 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(377,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  m_berserk.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_berserk.c(39): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_berserk.c(222): warning C4100: 'self': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_berserk.c(315): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_berserk.c(315): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_berserk.c(381): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_berserk.c(381): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_berserk.c(381): warning C4100: 'inflictor': unreferenced formal parameter
+  m_brain.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_brain.c(48): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_brain.c(542): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_brain.c(542): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_brain.c(542): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_brain.c(586): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_brain.c(586): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_brain.c(586): warning C4100: 'inflictor': unreferenced formal parameter
+  m_chick.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_chick.c(266): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_chick.c(266): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_chick.c(353): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_chick.c(353): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_chick.c(353): warning C4100: 'inflictor': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_chick.c(430): warning C4100: 'eta': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_chick.c(619): warning C4100: 'other': unreferenced formal parameter
+  m_flipper.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_flipper.c(223): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flipper.c(223): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flipper.c(223): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flipper.c(327): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flipper.c(332): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flipper.c(332): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flipper.c(332): warning C4100: 'inflictor': unreferenced formal parameter
+  m_float.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_float.c(41): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_float.c(566): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_float.c(566): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_float.c(566): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_float.c(603): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_float.c(603): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_float.c(603): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_float.c(603): warning C4100: 'inflictor': unreferenced formal parameter
+  m_flyer.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_flyer.c(52): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flyer.c(531): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flyer.c(531): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flyer.c(531): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flyer.c(564): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flyer.c(564): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flyer.c(564): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_flyer.c(564): warning C4100: 'inflictor': unreferenced formal parameter
+  m_gladiator.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_gladiator.c(49): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gladiator.c(240): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gladiator.c(240): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gladiator.c(240): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gladiator.c(308): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gladiator.c(308): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gladiator.c(308): warning C4100: 'inflictor': unreferenced formal parameter
+  m_gunner.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_gunner.c(46): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gunner.c(283): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gunner.c(283): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gunner.c(335): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gunner.c(335): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gunner.c(335): warning C4100: 'inflictor': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_gunner.c(409): warning C4100: 'eta': unreferenced formal parameter
+  m_hover.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_hover.c(43): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_hover.c(487): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_hover.c(487): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_hover.c(541): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_hover.c(541): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_hover.c(541): warning C4100: 'inflictor': unreferenced formal parameter
+  m_infantry.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_infantry.c(215): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_infantry.c(215): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_infantry.c(215): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_infantry.c(299): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_infantry.c(386): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_infantry.c(386): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_infantry.c(386): warning C4100: 'inflictor': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_infantry.c(466): warning C4100: 'eta': unreferenced formal parameter
+  m_medic.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_medic.c(116): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_medic.c(317): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_medic.c(317): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_medic.c(317): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_medic.c(413): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_medic.c(413): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_medic.c(413): warning C4100: 'inflictor': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_medic.c(494): warning C4100: 'eta': unreferenced formal parameter
+  m_mutant.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(62): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(308): warning C4100: 'surf': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(308): warning C4100: 'plane': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(496): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(496): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(496): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(574): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(574): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_mutant.c(574): warning C4100: 'inflictor': unreferenced formal parameter
+  m_parasite.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_parasite.c(65): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_parasite.c(275): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_parasite.c(275): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_parasite.c(275): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_parasite.c(471): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_parasite.c(471): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_parasite.c(471): warning C4100: 'inflictor': unreferenced formal parameter
+  m_soldier.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_soldier.c(409): warning C4100: 'damage': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_soldier.c(409): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_soldier.c(409): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_soldier.c(792): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_soldier.c(1144): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_soldier.c(1144): warning C4100: 'inflictor': unreferenced formal parameter
+  m_tank.c
+j:\programming\college\game mod\quake2\quake2-full\game\m_tank.c(49): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_tank.c(288): warning C4100: 'kick': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_tank.c(288): warning C4100: 'other': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_tank.c(753): warning C4100: 'point': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_tank.c(753): warning C4100: 'attacker': unreferenced formal parameter
+j:\programming\college\game mod\quake2\quake2-full\game\m_tank.c(753): warning C4100: 'inflictor': unreferenced formal parameter
+  Generating Code...
+     Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
+  game.vcxproj -> J:\Games\Quake 4\Quake II\baseq2\gamex86.dll

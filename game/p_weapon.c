@@ -26,6 +26,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 static qboolean	is_quad;
 static byte		is_silenced;
 
+void print(char* str)
+{
+	gi.dprintf("%s", str);
+}
 
 void weapon_grenade_fire (edict_t *ent, qboolean held);
 
@@ -829,7 +833,11 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//fire_grenade (ent, start, forward, damage, 1000, effect, hyper);
+	fire_bullet(ent, start, forward, damage, 0, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
+
+	print("\nfire\n");
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -874,7 +882,7 @@ void Weapon_HyperBlaster_Fire (edict_t *ent)
 
 	ent->client->weapon_sound = gi.soundindex("weapons/hyprbl1a.wav");
 
-	if (!(ent->client->buttons & BUTTON_ATTACK))
+	if (!(ent->client->buttons & BUTTON_ATTACK) || !(ent->client->buttons & BUTTON_USE))
 	{
 		ent->client->ps.gunframe++;
 	}
@@ -1429,6 +1437,5 @@ void Weapon_BFG (edict_t *ent)
 
 	Weapon_Generic (ent, 8, 32, 55, 58, pause_frames, fire_frames, weapon_bfg_fire);
 }
-
 
 //======================================================================
