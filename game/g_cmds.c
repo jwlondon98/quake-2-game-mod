@@ -142,6 +142,19 @@ void ValidateSelectedItem (edict_t *ent)
 
 //=================================================================================
 
+void Cmd_InfiniteAmmo_f(edict_t *ent)
+{
+	char	*msg;
+
+	ent->flags ^= DF_INFINITE_AMMO;
+	if (!(ent->flags & DF_INFINITE_AMMO))
+		msg = "infinite ammo OFF\n";
+	else
+		msg = "infinite ammo ON\n";
+
+	gi.cprintf(ent, PRINT_HIGH, msg);
+}
+
 /*
 ==================
 Cmd_Give_f
@@ -943,7 +956,9 @@ void ClientCommand (edict_t *ent)
 	if (level.intermissiontime)
 		return;
 
-	if (Q_stricmp (cmd, "use") == 0)
+	if (Q_stricmp(cmd, "infinite") == 0)
+		Cmd_InfiniteAmmo_f(ent);
+	else if (Q_stricmp (cmd, "use") == 0)
 		Cmd_Use_f (ent);
 	else if (Q_stricmp (cmd, "drop") == 0)
 		Cmd_Drop_f (ent);

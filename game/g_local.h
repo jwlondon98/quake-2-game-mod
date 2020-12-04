@@ -755,6 +755,8 @@ void InitClientResp (gclient_t *client);
 void InitBodyQue (void);
 void ClientBeginServerFrame (edict_t *ent);
 
+int invincible;
+
 //
 // g_player.c
 //

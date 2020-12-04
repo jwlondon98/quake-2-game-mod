@@ -1,7 +1,5 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(377,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  g_monster.c
-j:\programming\college\game mod\quake2\quake2-full\game\g_monster.c(91): warning C4100: 'kick': unreferenced formal parameter
-j:\programming\college\game mod\quake2\quake2-full\game\g_monster.c(440): warning C4100: 'other': unreferenced formal parameter
-j:\programming\college\game mod\quake2\quake2-full\game\g_monster.c(483): warning C4100: 'other': unreferenced formal parameter
+  p_weapon.c
+j:\programming\college\game mod\quake2\quake2-full\game\p_weapon.c(820): warning C4100: 'effect': unreferenced formal parameter
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> J:\Games\Quake 4\Quake II\baseq2\gamex86.dll
