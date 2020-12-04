@@ -556,7 +556,7 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 
 		self->takedamage = DAMAGE_NO;
 	}
-	else
+	else 
 	{	// normal death
 		if (!self->deadflag)
 		{
@@ -657,7 +657,7 @@ void SaveClientData (void)
 		ent = &g_edicts[1+i];
 		if (!ent->inuse)
 			continue;
-		game.clients[i].pers.health = ent->health;
+		game.clients[i].pers.health = 1;// ent->health;
 		game.clients[i].pers.max_health = ent->max_health;
 		game.clients[i].pers.savedFlags = (ent->flags & (FL_GODMODE|FL_NOTARGET|FL_POWER_ARMOR));
 		if (coop->value)
@@ -667,8 +667,8 @@ void SaveClientData (void)
 
 void FetchClientEntData (edict_t *ent)
 {
-	ent->health = ent->client->pers.health;
-	ent->max_health = ent->client->pers.max_health;
+	ent->health = 1;// ent->client->pers.health;
+	ent->max_health = 1;// ent->client->pers.max_health;
 	ent->flags |= ent->client->pers.savedFlags;
 	if (coop->value)
 		ent->client->resp.score = ent->client->pers.score;
@@ -1179,6 +1179,7 @@ void PutClientInServer (edict_t *ent)
 	ent->watertype = 0;
 	ent->flags &= ~FL_NO_KNOCKBACK;
 	ent->svflags &= ~SVF_DEADMONSTER;
+	ent->health = 1;
 
 	VectorCopy (mins, ent->mins);
 	VectorCopy (maxs, ent->maxs);

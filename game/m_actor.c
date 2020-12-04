@@ -451,7 +451,7 @@ void SP_misc_actor (edict_t *self)
 	VectorSet (self->maxs, 16, 16, 32);
 
 	if (!self->health)
-		self->health = 100;
+		self->health = 1;
 	self->mass = 200;
 
 	self->pain = actor_pain;

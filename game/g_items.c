@@ -560,7 +560,7 @@ qboolean Pickup_Health (edict_t *ent, edict_t *other)
 		if (other->health >= other->max_health)
 			return false;
 
-	other->health += ent->count;
+	//other->health += ent->count;
 
 	if (!(ent->style & HEALTH_IGNORE_MAX))
 	{
@@ -613,6 +613,8 @@ qboolean Pickup_Armor (edict_t *ent, edict_t *other)
 	int				newcount;
 	float			salvage;
 	int				salvagecount;
+
+	return;
 
 	// get info on new armor
 	newinfo = (gitem_armor_t *)ent->item->info;
@@ -728,6 +730,8 @@ void Use_PowerArmor (edict_t *ent, gitem_t *item)
 qboolean Pickup_PowerArmor (edict_t *ent, edict_t *other)
 {
 	int		quantity;
+
+	return;
 
 	quantity = other->client->pers.inventory[ITEM_INDEX(ent->item)];
 
