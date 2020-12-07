@@ -493,13 +493,31 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 
 
 		targ->health = targ->health - take;
-			
+		
 		if (targ->health <= 0)
 		{
+			targ->deadflag = DEAD_DEAD;
+
+			if (inflictor->classname == "player" && (targ->deadflag == DEAD_DEAD) && targ->health != -100)
+			{
+				targ->health = -100;
+				inflictor->points = inflictor->points + 50;
+				gi.dprintf("%s %i \n", "\nPlayer Points: ", inflictor->points);
+			}
+
 			if ((targ->svflags & SVF_MONSTER) || (client))
 				targ->flags |= FL_NO_KNOCKBACK;
 			Killed (targ, inflictor, attacker, take, point);
+
 			return;
+		}
+		else
+		{
+			if (inflictor->classname == "player")
+			{
+				inflictor->points = inflictor->points + 50;
+				gi.dprintf("%s %i \n", "\nPlayer Points: ", inflictor->points);
+			}
 		}
 	}
 

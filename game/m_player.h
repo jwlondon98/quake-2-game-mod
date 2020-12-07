@@ -1,4 +1,4 @@
-/*
+ /*
 Copyright (C) 1997-2001 Id Software, Inc.
 
 This program is free software; you can redistribute it and/or
@@ -221,4 +221,3 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define FRAME_death308        	197
 
 #define MODEL_SCALE		1.000000
-
