@@ -324,6 +324,17 @@ void ExitLevel (void)
 	edict_t	*ent;
 	char	command [256];
 
+	for (i = 0; i < maxclients->value; i++)
+	{
+		ent = g_edicts + 1 + i;
+
+		if (ent->classname == "player")
+		{
+			gi.dprintf("\n%s %i", "Total Player Kills: ", ent->kills);
+			gi.dprintf("\n%s %f %s", "Total Time Taken: ", ent->timeTaken, "\n\n");
+		}
+	}
+
 	Com_sprintf (command, sizeof(command), "gamemap \"%s\"\n", level.changemap);
 	gi.AddCommandString (command);
 	level.changemap = NULL;
@@ -340,7 +351,6 @@ void ExitLevel (void)
 		if (ent->health > ent->client->pers.max_health)
 			ent->health = ent->client->pers.max_health;
 	}
-
 }
 
 /*

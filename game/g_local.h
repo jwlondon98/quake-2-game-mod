@@ -1113,5 +1113,7 @@ struct edict_s
 	monsterinfo_t	monsterinfo;
 
 	int points;
+	int kills;
+	float timeTaken;
 };
 

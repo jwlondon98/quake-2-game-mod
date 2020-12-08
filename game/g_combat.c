@@ -502,7 +502,9 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 			{
 				targ->health = -100;
 				inflictor->points = inflictor->points + 50;
+				inflictor->kills = inflictor->kills + 1;
 				gi.dprintf("%s %i \n", "\nPlayer Points: ", inflictor->points);
+				gi.dprintf("%s %i \n", "\nPlayer Kills: ", inflictor->kills);
 			}
 
 			if ((targ->svflags & SVF_MONSTER) || (client))
