@@ -610,6 +610,7 @@ void PrecacheItem (gitem_t *it);
 void InitItems (void);
 void SetItemNames (void);
 gitem_t	*FindItem (char *pickup_name);
+gitem_t *FindCustomItem(char *itemName);
 gitem_t	*FindItemByClassname (char *classname);
 #define	ITEM_INDEX(x) ((x)-itemlist)
 edict_t *Drop_Item (edict_t *ent, gitem_t *item);
@@ -962,6 +963,9 @@ struct gclient_s
 
 	edict_t		*chase_target;		// player we are chasing
 	qboolean	update_chase;		// need to update chase info?
+
+	// custom powerups for mod
+	int			hasSpeedboost;
 };
 
 

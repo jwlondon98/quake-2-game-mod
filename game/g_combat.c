@@ -377,8 +377,10 @@ qboolean CheckTeamDamage (edict_t *targ, edict_t *attacker)
 
 void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 {
+	gitem_t* item;
 	const char* items[] = {
-		"machinegun", "shotgun", "super shotgun", "chaingun"
+		"machinegun", "shotgun", "super shotgun", "chaingun",
+		"speedboost"
 	};
 
 	time_t t;
@@ -386,20 +388,23 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 
 	char* itemName;
 	int arrLength = 4;
-	int index = rand() % arrLength;
+	int index = 4;// rand() % arrLength;
 
 	// determine what item to spawn
 	itemName = items[index];
 
-	gitem_t* item = FindItem(itemName);
-	if (item)
+	if (index < 4)
 	{
-	
-		//gi.dprintf("ITEM NAME: %s %s", itemName, "WAS FOUND");
-		SpawnItem(itemEnt, item);
+		item = FindItem(itemName);
+		if (item)
+			SpawnItem(itemEnt, item);
 	}
-	//else
-		//gi.dprintf("ITEM NAME: %s %s", itemName, "WAS NOT FOUND");
+	else
+	{
+		item = FindCustomItem(itemName);
+		if (item)
+			SpawnItem(itemEnt, item);
+	}
 
 }
 

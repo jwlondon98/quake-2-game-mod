@@ -115,6 +115,57 @@ gitem_t	*FindItem (char *pickup_name)
 	return NULL;
 }
 
+qboolean Pickup_Speedboost(edict_t *ent, edict_t *other)
+{
+	other->client->hasSpeedboost = 1;
+
+	gi.dprintf("\nPLAYER GOT SPEEDBOOST\n");
+}
+
+gitem_t customItems[] =
+{
+	// speed boost
+	{
+		"item_armor_shard",
+		Pickup_Speedboost,
+		NULL,
+		NULL,
+		NULL,
+		"misc/ar2_pkup.wav",
+		"models/items/armor/shard/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_jacketarmor",
+		/* pickup */	"speedboost",
+		/* width */		3,
+		0,
+		NULL,
+		IT_ARMOR,
+		0,
+		NULL,
+		ARMOR_SHARD,
+		/* precache */ ""
+	}
+};
+
+gitem_t *FindCustomItem(char *itemName)
+{
+	int i;
+	gitem_t *items;
+
+	items = customItems;
+	for (i = 0; i < 5; i++, items++)
+	{
+		if (!Q_stricmp(items->pickup_name, itemName))
+		{
+			gi.dprintf("%s has been found", itemName);
+			return items;
+		}
+	}
+
+	gi.dprintf("%s has NOT been found", itemName);
+	return NULL;
+}
+
 //======================================================================
 
 void DoRespawn (edict_t *ent)
@@ -1133,8 +1184,22 @@ void SpawnItem (edict_t *ent, gitem_t *item)
 	if (ent->model)
 	{
 		gi.modelindex (ent->model);
-		gi.dprintf("%s", "\nmade it to end of SpawnItem\n");
-		ent->think(ent);
+		//ent->think(ent);
+	}
+}
+
+void SpawnCustomItem(edict_t *ent, gitem_t *item)
+{
+	PrecacheItem(item);
+
+	ent->item = item;
+	ent->nextthink = level.time + 2 * FRAMETIME;    // items start after other solids
+	ent->think = droptofloor;
+	ent->s.effects = item->world_model_flags;
+	ent->s.renderfx = RF_GLOW;
+	if (ent->model)
+	{
+		gi.modelindex(ent->model);
 	}
 }
 
@@ -2123,7 +2188,6 @@ tank commander's head
 	// end of list marker
 	{NULL}
 };
-
 
 /*QUAKED item_health (.3 .3 1) (-16 -16 -16) (16 16 16)
 */
