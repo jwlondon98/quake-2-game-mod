@@ -374,6 +374,18 @@ qboolean CheckTeamDamage (edict_t *targ, edict_t *attacker)
 	return false;
 }
 
+
+void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
+{
+	gitem_t* item = FindItem("machinegun");
+
+	gi.dprintf("%s", "\nIN MonsterDropRandomItem\n");
+	//itemEnt->classname = "item_health_large";
+	//ent->spawnflags
+	SpawnItem(itemEnt, item);
+	//Touch_Item(itemEnt, player, NULL, NULL);
+}
+
 void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir, vec3_t point, vec3_t normal, int damage, int knockback, int dflags, int mod)
 {
 	gclient_t	*client;
@@ -505,6 +517,12 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 				inflictor->kills = inflictor->kills + 1;
 				gi.dprintf("%s %i \n", "\nPlayer Points: ", inflictor->points);
 				gi.dprintf("%s %i \n", "\nPlayer Kills: ", inflictor->kills);
+
+				// have monster potentially drop something
+				edict_t* item = G_Spawn();
+				item->spawnflags = ITEM_TRIGGER_SPAWN;
+				VectorCopy(targ->s.origin, item->s.origin);
+				MonsterDropRandomItem(item, inflictor);	
 			}
 
 			if ((targ->svflags & SVF_MONSTER) || (client))

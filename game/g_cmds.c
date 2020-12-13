@@ -308,6 +308,13 @@ void Cmd_Give_f (edict_t *ent)
 	}
 }
 
+void Cmd_Spawn_f (edict_t *ent)
+{
+	gi.dprintf("%s", "CMD SPAWN BOSS");
+
+	
+}
+
 
 /*
 ==================
@@ -958,12 +965,14 @@ void ClientCommand (edict_t *ent)
 
 	if (Q_stricmp(cmd, "infinite") == 0)
 		Cmd_InfiniteAmmo_f(ent);
-	else if (Q_stricmp (cmd, "use") == 0)
-		Cmd_Use_f (ent);
-	else if (Q_stricmp (cmd, "drop") == 0)
-		Cmd_Drop_f (ent);
-	else if (Q_stricmp (cmd, "give") == 0)
-		Cmd_Give_f (ent);
+	else if (Q_stricmp(cmd, "use") == 0)
+		Cmd_Use_f(ent);
+	else if (Q_stricmp(cmd, "drop") == 0)
+		Cmd_Drop_f(ent);
+	else if (Q_stricmp(cmd, "give") == 0)
+		Cmd_Give_f(ent);
+	else if (Q_stricmp(cmd, "spawnboss") == 0)
+		Cmd_Spawn_f(ent);
 	else if (Q_stricmp (cmd, "god") == 0)
 		Cmd_God_f (ent);
 	else if (Q_stricmp (cmd, "notarget") == 0)

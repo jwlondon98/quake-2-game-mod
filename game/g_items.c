@@ -1131,7 +1131,11 @@ void SpawnItem (edict_t *ent, gitem_t *item)
 	ent->s.effects = item->world_model_flags;
 	ent->s.renderfx = RF_GLOW;
 	if (ent->model)
+	{
 		gi.modelindex (ent->model);
+		gi.dprintf("%s", "\nmade it to end of SpawnItem\n");
+		ent->think(ent);
+	}
 }
 
 //======================================================================
