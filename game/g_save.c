@@ -158,7 +158,7 @@ void InitGame (void)
 	gun_z = gi.cvar ("gun_z", "0", 0);
 
 	//FIXME: sv_ prefix is wrong for these
-	sv_rollspeed = gi.cvar ("sv_rollspeed", "200", 0);
+	sv_rollspeed = gi.cvar("sv_rollspeed", "200", 0);
 	sv_rollangle = gi.cvar ("sv_rollangle", "2", 0);
 	sv_maxvelocity = gi.cvar ("sv_maxvelocity", "2000", 0);
 	sv_gravity = gi.cvar ("sv_gravity", "800", 0);

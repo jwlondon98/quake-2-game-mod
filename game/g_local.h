@@ -258,6 +258,8 @@ typedef struct gitem_s
 	int			tag;
 
 	char		*precaches;		// string of all models, sounds, and images this item will use
+
+	edict_t		*player;
 } gitem_t;
 
 
@@ -963,9 +965,6 @@ struct gclient_s
 
 	edict_t		*chase_target;		// player we are chasing
 	qboolean	update_chase;		// need to update chase info?
-
-	// custom powerups for mod
-	int			hasSpeedboost;
 };
 
 
@@ -1120,5 +1119,8 @@ struct edict_s
 	int points;
 	int kills;
 	float timeTaken;
+
+	// custom powerups for mod
+	int			hasInvincibility;
 };
 

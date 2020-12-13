@@ -396,12 +396,14 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 	if (index < 4)
 	{
 		item = FindItem(itemName);
+		item->player = player;
 		if (item)
 			SpawnItem(itemEnt, item);
 	}
 	else
 	{
 		item = FindCustomItem(itemName);
+		item->player = player;
 		if (item)
 			SpawnItem(itemEnt, item);
 	}
@@ -525,8 +527,13 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		else
 			SpawnDamage (te_sparks, point, normal, take);
 
+		gi.dprintf("\ntarg invincibility %i\n", targ->hasInvincibility);
 
-		targ->health = targ->health - take;
+		if (targ->hasInvincibility == 0)
+			targ->health = targ->health - take;
+		else
+			targ->hasInvincibility = 0;
+
 		
 		if (targ->health <= 0)
 		{
@@ -539,6 +546,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 				inflictor->kills = inflictor->kills + 1;
 				gi.dprintf("%s %i \n", "\nPlayer Points: ", inflictor->points);
 				gi.dprintf("%s %i \n", "\nPlayer Kills: ", inflictor->kills);
+				gi.dprintf("\nPLAYER SPEED: %i \n", inflictor->speed);
 
 				// have monster potentially drop something
 				edict_t* item = G_Spawn();

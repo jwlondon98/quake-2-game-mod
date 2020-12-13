@@ -49,7 +49,7 @@ float SV_CalcRoll (vec3_t angles, vec3_t velocity)
 	sign = side < 0 ? -1 : 1;
 	side = fabs(side);
 	
-	value = sv_rollangle->value;
+	value = sv_rollangle->value * 5;
 
 	if (side < sv_rollspeed->value)
 		side = side * value / sv_rollspeed->value;

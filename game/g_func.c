@@ -96,7 +96,6 @@ void Move_Final (edict_t *ent)
 void Move_Begin (edict_t *ent)
 {
 	float	frames;
-
 	if ((ent->moveinfo.speed * FRAMETIME) >= ent->moveinfo.remaining_distance)
 	{
 		Move_Final (ent);

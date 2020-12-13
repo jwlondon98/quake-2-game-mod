@@ -115,11 +115,15 @@ gitem_t	*FindItem (char *pickup_name)
 	return NULL;
 }
 
-qboolean Pickup_Speedboost(edict_t *ent, edict_t *other)
+// ent = item, other = ?
+qboolean Pickup_Invincibility(edict_t *ent, edict_t *other)
 {
-	other->client->hasSpeedboost = 1;
+	//gi.dprintf("PLAYER CLASSNAME: %s", ent->item->player->classname);
+	ent->item->player->hasInvincibility = 1;
+	
+	//gi.dprintf("\nplayer invincibility %i\n", ent->item->player->hasInvincibility);
 
-	gi.dprintf("\nPLAYER GOT SPEEDBOOST\n");
+	//gi.dprintf("\nPLAYER GOT INVINCIBILITY\n");
 }
 
 gitem_t customItems[] =
@@ -127,7 +131,7 @@ gitem_t customItems[] =
 	// speed boost
 	{
 		"item_armor_shard",
-		Pickup_Speedboost,
+		Pickup_Invincibility,
 		NULL,
 		NULL,
 		NULL,
