@@ -377,13 +377,30 @@ qboolean CheckTeamDamage (edict_t *targ, edict_t *attacker)
 
 void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 {
-	gitem_t* item = FindItem("machinegun");
+	const char* items[] = {
+		"machinegun", "shotgun", "super shotgun", "chaingun"
+	};
 
-	gi.dprintf("%s", "\nIN MonsterDropRandomItem\n");
-	//itemEnt->classname = "item_health_large";
-	//ent->spawnflags
-	SpawnItem(itemEnt, item);
-	//Touch_Item(itemEnt, player, NULL, NULL);
+	time_t t;
+	srand((unsigned)time(&t));
+
+	char* itemName;
+	int arrLength = 4;
+	int index = rand() % arrLength;
+
+	// determine what item to spawn
+	itemName = items[index];
+
+	gitem_t* item = FindItem(itemName);
+	if (item)
+	{
+	
+		//gi.dprintf("ITEM NAME: %s %s", itemName, "WAS FOUND");
+		SpawnItem(itemEnt, item);
+	}
+	//else
+		//gi.dprintf("ITEM NAME: %s %s", itemName, "WAS NOT FOUND");
+
 }
 
 void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir, vec3_t point, vec3_t normal, int damage, int knockback, int dflags, int mod)
