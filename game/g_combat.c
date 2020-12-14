@@ -380,7 +380,7 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 	gitem_t* item;
 	const char* items[] = {
 		"machinegun", "shotgun", "super shotgun", "chaingun",
-		"speedboost"
+		"speedboost", "defector"
 	};
 
 	time_t t;
@@ -388,7 +388,7 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 
 	char* itemName;
 	int arrLength = 4;
-	int index = 4;// rand() % arrLength;
+	int index = 5;// rand() % arrLength;
 
 	// determine what item to spawn
 	itemName = items[index];
@@ -527,7 +527,12 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		else
 			SpawnDamage (te_sparks, point, normal, take);
 
-		gi.dprintf("\ntarg invincibility %i\n", targ->hasInvincibility);
+		//gi.dprintf("\ntarg invincibility %i\n", targ->hasInvincibility);
+		if (inflictor->owner && inflictor->owner->isDefector)
+		{
+			if (!Q_stricmp(targ->classname, "player"))
+				return;
+		}
 
 		if (targ->hasInvincibility == 0)
 			targ->health = targ->health - take;

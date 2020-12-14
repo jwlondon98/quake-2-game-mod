@@ -333,6 +333,13 @@ void HuntTarget (edict_t *self)
 	vec3_t	vec;
 
 	self->goalentity = self->enemy;
+
+	if (strcmp(self->goalentity->classname, "player") == 1)
+	{
+		self->goalentity = self->enemy->defector;
+		gi.dprintf("\nENEMY TARGET IS NOW DEFECTOR\n");
+	}
+
 	if (self->monsterinfo.aiflags & AI_STAND_GROUND)
 		self->monsterinfo.stand (self);
 	else
@@ -346,6 +353,42 @@ void HuntTarget (edict_t *self)
 
 void FoundTarget (edict_t *self)
 {
+	if (self->isDefector)
+	{
+		self->target = NULL;
+		self->goalentity = NULL;
+		self->movetarget = NULL;
+		gi.dprintf("\nNO TARGET FOR DEFECTOR\n");
+
+		//// find closest enemy to player
+		//vec3_t	v;
+		//float	len;
+		//int r;
+		//int i;
+		//for (i = 0; i < &)
+		//{
+		//	VectorSubtract(self->s.origin, other->s.origin, v);
+		//	len = VectorLength(v);
+		//	if (len < MELEE_DISTANCE)
+		//		return RANGE_MELEE;
+		//	r = range(self, client);
+		//}
+		//HuntTarget(self);
+		return;
+	}
+	else
+	{
+		if (self->enemy->client && self->enemy->defector)
+		{
+			gi.dprintf("\nNON DEFECTOR TARGET SET TO DEFECTOR\n");
+			self->enemy = self->enemy->defector;
+			HuntTarget(self);
+			return;
+		}
+		else
+			gi.dprintf("\nNULL\n");
+	}
+
 	// let other monsters see this monster for a while
 	if (self->enemy->client)
 	{
@@ -445,12 +488,12 @@ qboolean FindTarget (edict_t *self)
 	else if (level.sound_entity_framenum >= (level.framenum - 1))
 	{
 		client = level.sound_entity;
-		heardit = true;
+		//heardit = true;
 	}
 	else if (!(self->enemy) && (level.sound2_entity_framenum >= (level.framenum - 1)) && !(self->spawnflags & 1) )
 	{
 		client = level.sound2_entity;
-		heardit = true;
+		//heardit = true;
 	}
 	else
 	{

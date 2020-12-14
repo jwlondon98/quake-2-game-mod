@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 #include "g_local.h"
-
+#include "m_soldier.h"
 
 qboolean	Pickup_Weapon (edict_t *ent, edict_t *other);
 void		Use_Weapon (edict_t *ent, gitem_t *inv);
@@ -126,9 +126,36 @@ qboolean Pickup_Invincibility(edict_t *ent, edict_t *other)
 	//gi.dprintf("\nPLAYER GOT INVINCIBILITY\n");
 }
 
+qboolean Pickup_Defector(edict_t *ent, edict_t *other)
+{
+	edict_t* defector = G_Spawn();
+	vec3_t offset;
+	offset[0] = 0;
+	offset[1] = 50;
+	offset[2] = 0;
+	VectorAdd(ent->item->player->s.origin, offset, defector->s.origin);
+
+	gi.dprintf("\nplayer pos: (%f, %f, %f)\n", 
+		ent->item->player->s.origin[0], 
+		ent->item->player->s.origin[1], 
+		ent->item->player->s.origin[2]);
+
+	gi.dprintf("\ndefector pos: (%f, %f, %f)\n",
+		defector->s.origin[0],
+		defector->s.origin[1],
+		defector->s.origin[2]);
+
+	defector->isDefector = 1;
+	SP_monster_soldier_light(defector);
+	
+	ent->defector = defector;
+
+	gi.dprintf("\nPLAYER GOT DEFECTOR\n");
+}
+
 gitem_t customItems[] =
 {
-	// speed boost
+	// invincibility
 	{
 		"item_armor_shard",
 		Pickup_Invincibility,
@@ -148,6 +175,27 @@ gitem_t customItems[] =
 		NULL,
 		ARMOR_SHARD,
 		/* precache */ ""
+	},
+
+	{
+		"item_invulnerability",
+		Pickup_Defector,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/invulner/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_invulnerability",
+		/* pickup */	"defector",
+		/* width */		2,
+		300,
+		NULL,
+		IT_POWERUP,
+		0,
+		NULL,
+		0,
+		/* precache */ "items/protect.wav items/protect2.wav items/protect4.wav"
 	}
 };
 

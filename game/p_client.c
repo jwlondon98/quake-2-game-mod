@@ -1748,6 +1748,21 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	}
 
 	// NEW PLAYER CODE SHOULD GO HERE
+	//for (i = 0; i < ; i++)
+	//{
+	//	edict_t* ent = &g_edicts[i];
+
+	//	gi.dprintf("\nENTITY: %s\n", ent->classname);
+
+	//	/*if (!ent->target)
+	//		continue;
+
+	//	gi.dprintf("ENTITY: %s target: %s", ent->classname, ent->targetname);
+	//	if (!Q_stricmp(ent->targetname, "player"))
+	//	{
+	//		
+	//	}*/
+	//}
 }
 
 
