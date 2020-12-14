@@ -380,7 +380,7 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 	gitem_t* item;
 	const char* items[] = {
 		"machinegun", "shotgun", "super shotgun", "chaingun",
-		"speedboost", "stun"
+		"invinc", "stun"
 	};
 
 	time_t t;
@@ -388,7 +388,7 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 
 	char* itemName;
 	int arrLength = 4;
-	int index = 5;// rand() % arrLength;
+	int index = 4;// rand() % arrLength;
 
 	// determine what item to spawn
 	itemName = items[index];

@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
 
-static	edict_t		*current_player;
+static  edict_t		*current_player;
 static	gclient_t	*current_client;
 
 static	vec3_t	forward, right, up;
@@ -861,6 +861,18 @@ void G_SetClientFrame (edict_t *ent)
 		return;		// not in the player model
 
 	client = ent->client;
+
+	if (ent->hasInvincibility == 1 && level.time - ent->invincTimeStart >= 10.0)
+	{
+		gi.dprintf("\ninvincibility disabled\n");
+		ent->hasInvincibility = 0;
+	}
+
+	if (ent->stunActive == 1 && level.time - ent->stunTimeStart >= 5.0)
+	{
+		gi.dprintf("\nstun disabled\n");
+		ent->stunActive = 0;
+	}
 
 	if (client->ps.pmove.pm_flags & PMF_DUCKED)
 		duck = true;

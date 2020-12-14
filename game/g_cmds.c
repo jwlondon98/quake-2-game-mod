@@ -315,6 +315,24 @@ void Cmd_Spawn_f (edict_t *ent)
 	
 }
 
+void Cmd_TestPowerup (edict_t *ent)
+{
+	char *powerup = gi.argv(1);
+	int *enabled = atoi(gi.argv(2));
+
+	if (Q_stricmp(gi.argv(1), "invinc") == 0)
+	{
+		ent->hasInvincibility = enabled;
+		ent->invincTimeStart = level.time;
+	}
+	else if (Q_stricmp(gi.argv(1), "stun") == 0)
+	{
+		ent->stunActive = enabled;
+		ent->stunTimeStart = level.time;	
+	}
+
+	gi.dprintf("\npowerup: %s (%i)\n", powerup, enabled);
+}
 
 /*
 ==================
@@ -971,6 +989,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Drop_f(ent);
 	else if (Q_stricmp(cmd, "give") == 0)
 		Cmd_Give_f(ent);
+	else if (Q_stricmp(cmd, "powerup") == 0)
+		Cmd_TestPowerup(ent);
 	else if (Q_stricmp(cmd, "spawnboss") == 0)
 		Cmd_Spawn_f(ent);
 	else if (Q_stricmp (cmd, "god") == 0)

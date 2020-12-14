@@ -120,10 +120,10 @@ qboolean Pickup_Invincibility(edict_t *ent, edict_t *other)
 {
 	//gi.dprintf("PLAYER CLASSNAME: %s", ent->item->player->classname);
 	ent->item->player->hasInvincibility = 1;
-	
+	ent->item->player->invincTimeStart = level.time;
 	//gi.dprintf("\nplayer invincibility %i\n", ent->item->player->hasInvincibility);
 
-	//gi.dprintf("\nPLAYER GOT INVINCIBILITY\n");
+	gi.dprintf("\nPLAYER GOT INVINCIBILITY\n");
 }
 
 qboolean Pickup_Stun(edict_t *ent, edict_t *other)
@@ -142,6 +142,22 @@ qboolean Pickup_Stun(edict_t *ent, edict_t *other)
 	gi.dprintf("\nPLAYER GOT STUN\n");
 }
 
+qboolean Pickup_Teleportation(edict_t *ent, edict_t *other)
+{
+	//edict_t* defector = G_Spawn();
+	//vec3_t offset;
+	//offset[0] = 0;
+	//offset[1] = 50;
+	//offset[2] = 0;
+	//VectorAdd(ent->item->player->s.origin, offset, defector->s.origin);
+
+	ent->item->player->stunActive = 1;
+	ent->item->player->stunTimeStart = level.time;
+	//SP_monster_soldier_light(defector);
+
+	gi.dprintf("\nPLAYER GOT TELEPORTATION\n");
+}
+
 gitem_t customItems[] =
 {
 	// invincibility
@@ -155,7 +171,7 @@ gitem_t customItems[] =
 		"models/items/armor/shard/tris.md2", EF_ROTATE,
 		NULL,
 		/* icon */		"i_jacketarmor",
-		/* pickup */	"speedboost",
+		/* pickup */	"invinc",
 		/* width */		3,
 		0,
 		NULL,
@@ -198,7 +214,7 @@ gitem_t *FindCustomItem(char *itemName)
 	{
 		if (!Q_stricmp(items->pickup_name, itemName))
 		{
-			gi.dprintf("%s has been found", itemName);
+			//gi.dprintf("%s has been found", itemName);
 			return items;
 		}
 	}
