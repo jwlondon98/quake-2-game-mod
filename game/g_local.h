@@ -450,8 +450,6 @@ typedef struct
 	int			power_armor_power;
 } monsterinfo_t;
 
-
-
 extern	game_locals_t	game;
 extern	level_locals_t	level;
 extern	game_import_t	gi;
@@ -1121,11 +1119,13 @@ struct edict_s
 	float timeTaken;
 
 	// custom powerups for mod
-	int			hasInvincibility;
+	int			invincActive;
 	float		invincTimeStart;
 	int			stunActive;
 	float		stunTimeStart;
 	int			teleActive;
 	float		teleTimeStart;
+	int			grenBullActive;
+	float		grenBullTimeStart;
 };
 

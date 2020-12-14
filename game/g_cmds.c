@@ -20,7 +20,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "g_local.h"
 #include "m_player.h"
 
-
 char *ClientTeam (edict_t *ent)
 {
 	char		*p;
@@ -322,7 +321,7 @@ void Cmd_TestPowerup (edict_t *ent)
 
 	if (Q_stricmp(gi.argv(1), "invinc") == 0)
 	{
-		ent->hasInvincibility = enabled;
+		ent->invincActive = enabled;
 		ent->invincTimeStart = level.time;
 	}
 	else if (Q_stricmp(gi.argv(1), "stun") == 0)
@@ -334,6 +333,11 @@ void Cmd_TestPowerup (edict_t *ent)
 	{
 		ent->teleActive = enabled;
 		ent->teleTimeStart = level.time;
+	}
+	else if (Q_stricmp(gi.argv(1), "grenbull") == 0)
+	{
+		ent->grenBullActive = 1;
+		ent->grenBullTimeStart = level.time;
 	}
 
 	gi.dprintf("\npowerup: %s (%i)\n", powerup, enabled);

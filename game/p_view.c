@@ -21,8 +21,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "g_local.h"
 #include "m_player.h"
 
-
-
 static  edict_t		*current_player;
 static	gclient_t	*current_client;
 
@@ -862,10 +860,10 @@ void G_SetClientFrame (edict_t *ent)
 
 	client = ent->client;
 
-	if (ent->hasInvincibility == 1 && level.time - ent->invincTimeStart >= 10.0)
+	if (ent->invincActive == 1 && level.time - ent->invincTimeStart >= 10.0)
 	{
 		gi.dprintf("\ninvincibility disabled\n");
-		ent->hasInvincibility = 0;
+		ent->invincActive = 0;
 	}
 
 	if (ent->stunActive == 1 && level.time - ent->stunTimeStart >= 5.0)
@@ -880,8 +878,11 @@ void G_SetClientFrame (edict_t *ent)
 		ent->teleActive = 0;
 	}
 
-	if (((client->latched_buttons | ent->client->buttons) & BUTTON_USE))
-		gi.dprintf("USE BUTTON PRESSED");
+	if (ent->grenBullActive == 1 && level.time - ent->grenBullTimeStart >= 10.0)
+	{
+		gi.dprintf("\ngrenade bullets disabled\n");
+		ent->grenBullActive = 0;
+	}
 
 	if (client->ps.pmove.pm_flags & PMF_DUCKED)
 		duck = true;

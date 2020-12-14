@@ -216,12 +216,27 @@ static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, i
 		}
 	}
 
+	if (self->grenBullActive && te_impact != TE_SHOTGUN)
+	{
+		int i;
+
+		for (i = 0; i < 5; i++)
+		{
+			vec3_t spawnPos;
+			vec3_t offset;
+			offset[1] = (i + 1) * 20;
+			VectorAdd(start, offset, spawnPos);
+			fire_grenade(self, spawnPos, aimdir, 1000, 500, 2, 100);
+		}
+	}
+
+
 	// send gun puff / flash
 	if (!((tr.surface) && (tr.surface->flags & SURF_SKY)))
 	{
 		if (tr.fraction < 1.0)
 		{
-			if (tr.ent->takedamage)
+			if (tr.ent->takedamage && !self->grenBullActive)
 			{
 				T_Damage (tr.ent, self, self, aimdir, tr.endpos, tr.plane.normal, damage, kick, DAMAGE_BULLET, mod);
 			}
@@ -496,10 +511,10 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 	grenade = G_Spawn();
 	VectorCopy (start, grenade->s.origin);
 	VectorScale (aimdir, speed, grenade->velocity);
-	VectorMA (grenade->velocity, 200 + crandom() * 10.0, up, grenade->velocity);
+	VectorMA (grenade->velocity, 1, up, grenade->velocity);
 	VectorMA (grenade->velocity, crandom() * 10.0, right, grenade->velocity);
 	VectorSet (grenade->avelocity, 300, 300, 300);
-	grenade->movetype = MOVETYPE_BOUNCE;
+	grenade->movetype = MOVETYPE_FLY;
 	grenade->clipmask = MASK_SHOT;
 	grenade->solid = SOLID_BBOX;
 	grenade->s.effects |= EF_GRENADE;

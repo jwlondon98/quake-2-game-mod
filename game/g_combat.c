@@ -380,7 +380,7 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 	gitem_t* item;
 	const char* items[] = {
 		"machinegun", "shotgun", "super shotgun", "chaingun",
-		"invinc", "stun", "tele"
+		"invinc", "stun", "tele", "grenbull"
 	};
 
 	time_t t;
@@ -388,7 +388,7 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 
 	char* itemName;
 	int arrLength = 4;
-	int index = 6;// rand() % arrLength;
+	int index = 7;// rand() % arrLength;
 
 	// determine what item to spawn
 	itemName = items[index];
@@ -527,10 +527,10 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		else
 			SpawnDamage (te_sparks, point, normal, take);
 
-		if (targ->hasInvincibility == 0)
+		if (targ->invincActive == 0)
 			targ->health = targ->health - take;
 		else
-			targ->hasInvincibility = 0;
+			targ->invincActive = 0;
 
 		
 		if (targ->health <= 0)
@@ -634,6 +634,9 @@ void T_RadiusDamage (edict_t *inflictor, edict_t *attacker, float damage, edict_
 			if (CanDamage (ent, inflictor))
 			{
 				VectorSubtract (ent->s.origin, inflictor->s.origin, dir);
+				if (!Q_stricmp(inflictor->classname, "player") ||
+					!Q_stricmp(ent->classname, "player"))
+					return;
 				T_Damage (ent, inflictor, attacker, dir, inflictor->s.origin, vec3_origin, (int)points, (int)points, DAMAGE_RADIUS, mod);
 			}
 		}

@@ -119,7 +119,7 @@ gitem_t	*FindItem (char *pickup_name)
 qboolean Pickup_Invincibility(edict_t *ent, edict_t *other)
 {
 	//gi.dprintf("PLAYER CLASSNAME: %s", ent->item->player->classname);
-	ent->item->player->hasInvincibility = 1;
+	ent->item->player->invincActive = 1;
 	ent->item->player->invincTimeStart = level.time;
 	//gi.dprintf("\nplayer invincibility %i\n", ent->item->player->hasInvincibility);
 
@@ -148,6 +148,14 @@ qboolean Pickup_Teleportation(edict_t *ent, edict_t *other)
 	ent->item->player->teleTimeStart = level.time;
 
 	gi.dprintf("\nPLAYER GOT TELEPORTATION\n");
+}
+
+qboolean Pickup_GrenadeBullets(edict_t *ent, edict_t *other)
+{
+	ent->item->player->grenBullActive = 1;
+	ent->item->player->grenBullTimeStart = level.time;
+
+	gi.dprintf("\nPLAYER GOT GRENADE BULLETS\n");
 }
 
 gitem_t customItems[] =
@@ -214,6 +222,27 @@ gitem_t customItems[] =
 		NULL,
 		0,
 		/* precache */ "items/damage.wav items/damage2.wav items/damage3.wav"
+	},
+
+	{
+		"item_adrenaline",
+		Pickup_GrenadeBullets,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/adrenal/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_adrenaline",
+		/* pickup */	"grenbull",
+		/* width */		2,
+		60,
+		NULL,
+		0,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
 	}
 };
 
@@ -502,8 +531,6 @@ void Use_Breather (edict_t *ent, gitem_t *item)
 
 void Use_Envirosuit (edict_t *ent, gitem_t *item)
 {
-	gi.dprintf("\NHELLO\N");
-
 	ent->client->pers.inventory[ITEM_INDEX(item)]--;
 	ValidateSelectedItem (ent);
 
@@ -1257,21 +1284,6 @@ void SpawnItem (edict_t *ent, gitem_t *item)
 	{
 		gi.modelindex (ent->model);
 		//ent->think(ent);
-	}
-}
-
-void SpawnCustomItem(edict_t *ent, gitem_t *item)
-{
-	PrecacheItem(item);
-
-	ent->item = item;
-	ent->nextthink = level.time + 2 * FRAMETIME;    // items start after other solids
-	ent->think = droptofloor;
-	ent->s.effects = item->world_model_flags;
-	ent->s.renderfx = RF_GLOW;
-	if (ent->model)
-	{
-		gi.modelindex(ent->model);
 	}
 }
 
