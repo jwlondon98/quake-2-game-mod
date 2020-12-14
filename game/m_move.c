@@ -518,6 +518,9 @@ void M_MoveToGoal (edict_t *ent, float dist)
 	
 	goal = ent->goalentity;
 
+	if (goal->stunActive)
+		return;
+
 	if (!ent->groundentity && !(ent->flags & (FL_FLY|FL_SWIM)))
 		return;
 

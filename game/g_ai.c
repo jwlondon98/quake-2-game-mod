@@ -114,6 +114,9 @@ void ai_stand (edict_t *self, float dist)
 	{
 		if (self->enemy)
 		{
+			if (self->enemy->stunActive == 1)
+				return;
+
 			VectorSubtract (self->enemy->s.origin, self->s.origin, v);
 			self->ideal_yaw = vectoyaw(v);
 			if (self->s.angles[YAW] != self->ideal_yaw && self->monsterinfo.aiflags & AI_TEMP_STAND_GROUND)
@@ -194,6 +197,9 @@ Use this call with a distnace of 0 to replace ai_face
 void ai_charge (edict_t *self, float dist)
 {
 	vec3_t	v;
+
+	if (self->enemy->stunActive == 1)
+		return;
 
 	VectorSubtract (self->enemy->s.origin, self->s.origin, v);
 	self->ideal_yaw = vectoyaw(v);
@@ -334,12 +340,6 @@ void HuntTarget (edict_t *self)
 
 	self->goalentity = self->enemy;
 
-	if (strcmp(self->goalentity->classname, "player") == 1)
-	{
-		self->goalentity = self->enemy->defector;
-		gi.dprintf("\nENEMY TARGET IS NOW DEFECTOR\n");
-	}
-
 	if (self->monsterinfo.aiflags & AI_STAND_GROUND)
 		self->monsterinfo.stand (self);
 	else
@@ -353,42 +353,6 @@ void HuntTarget (edict_t *self)
 
 void FoundTarget (edict_t *self)
 {
-	if (self->isDefector)
-	{
-		self->target = NULL;
-		self->goalentity = NULL;
-		self->movetarget = NULL;
-		gi.dprintf("\nNO TARGET FOR DEFECTOR\n");
-
-		//// find closest enemy to player
-		//vec3_t	v;
-		//float	len;
-		//int r;
-		//int i;
-		//for (i = 0; i < &)
-		//{
-		//	VectorSubtract(self->s.origin, other->s.origin, v);
-		//	len = VectorLength(v);
-		//	if (len < MELEE_DISTANCE)
-		//		return RANGE_MELEE;
-		//	r = range(self, client);
-		//}
-		//HuntTarget(self);
-		return;
-	}
-	else
-	{
-		if (self->enemy->client && self->enemy->defector)
-		{
-			gi.dprintf("\nNON DEFECTOR TARGET SET TO DEFECTOR\n");
-			self->enemy = self->enemy->defector;
-			HuntTarget(self);
-			return;
-		}
-		else
-			gi.dprintf("\nNULL\n");
-	}
-
 	// let other monsters see this monster for a while
 	if (self->enemy->client)
 	{
@@ -819,6 +783,9 @@ qboolean ai_checkattack (edict_t *self, float dist)
 // this causes monsters to run blindly to the combat point w/o firing
 	if (self->goalentity)
 	{
+		if (self->goalentity->stunActive == 1)
+			return;
+
 		if (self->monsterinfo.aiflags & AI_COMBAT_POINT)
 			return false;
 
@@ -906,6 +873,9 @@ qboolean ai_checkattack (edict_t *self, float dist)
 	self->show_hostile = level.time + 1;		// wake up other monsters
 
 // check knowledge of enemy
+	if (self->enemy->stunActive == 1)
+		return;
+
 	enemy_vis = visible(self, self->enemy);
 	if (enemy_vis)
 	{

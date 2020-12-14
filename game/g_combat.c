@@ -380,7 +380,7 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 	gitem_t* item;
 	const char* items[] = {
 		"machinegun", "shotgun", "super shotgun", "chaingun",
-		"speedboost", "defector"
+		"speedboost", "stun"
 	};
 
 	time_t t;
@@ -527,13 +527,6 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		else
 			SpawnDamage (te_sparks, point, normal, take);
 
-		//gi.dprintf("\ntarg invincibility %i\n", targ->hasInvincibility);
-		if (inflictor->owner && inflictor->owner->isDefector)
-		{
-			if (!Q_stricmp(targ->classname, "player"))
-				return;
-		}
-
 		if (targ->hasInvincibility == 0)
 			targ->health = targ->health - take;
 		else
@@ -549,9 +542,8 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 				targ->health = -100;
 				inflictor->points = inflictor->points + 50;
 				inflictor->kills = inflictor->kills + 1;
-				gi.dprintf("%s %i \n", "\nPlayer Points: ", inflictor->points);
-				gi.dprintf("%s %i \n", "\nPlayer Kills: ", inflictor->kills);
-				gi.dprintf("\nPLAYER SPEED: %i \n", inflictor->speed);
+				//gi.dprintf("%s %i \n", "\nPlayer Points: ", inflictor->points);
+				//gi.dprintf("%s %i \n", "\nPlayer Kills: ", inflictor->kills);
 
 				// have monster potentially drop something
 				edict_t* item = G_Spawn();

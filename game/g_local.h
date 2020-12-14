@@ -1122,7 +1122,9 @@ struct edict_s
 
 	// custom powerups for mod
 	int			hasInvincibility;
-	int			isDefector;
-	edict_t*		defector;
+	int			stunActive;
+	float		stunTimeStart;
+	//int			isDefector;
+	//edict_t*		defector;
 };
 

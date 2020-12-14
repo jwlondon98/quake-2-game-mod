@@ -126,31 +126,20 @@ qboolean Pickup_Invincibility(edict_t *ent, edict_t *other)
 	//gi.dprintf("\nPLAYER GOT INVINCIBILITY\n");
 }
 
-qboolean Pickup_Defector(edict_t *ent, edict_t *other)
+qboolean Pickup_Stun(edict_t *ent, edict_t *other)
 {
-	edict_t* defector = G_Spawn();
-	vec3_t offset;
-	offset[0] = 0;
-	offset[1] = 50;
-	offset[2] = 0;
-	VectorAdd(ent->item->player->s.origin, offset, defector->s.origin);
+	//edict_t* defector = G_Spawn();
+	//vec3_t offset;
+	//offset[0] = 0;
+	//offset[1] = 50;
+	//offset[2] = 0;
+	//VectorAdd(ent->item->player->s.origin, offset, defector->s.origin);
 
-	gi.dprintf("\nplayer pos: (%f, %f, %f)\n", 
-		ent->item->player->s.origin[0], 
-		ent->item->player->s.origin[1], 
-		ent->item->player->s.origin[2]);
+	ent->item->player->stunActive = 1;
+	ent->item->player->stunTimeStart = level.time;
+	//SP_monster_soldier_light(defector);
 
-	gi.dprintf("\ndefector pos: (%f, %f, %f)\n",
-		defector->s.origin[0],
-		defector->s.origin[1],
-		defector->s.origin[2]);
-
-	defector->isDefector = 1;
-	SP_monster_soldier_light(defector);
-	
-	ent->defector = defector;
-
-	gi.dprintf("\nPLAYER GOT DEFECTOR\n");
+	gi.dprintf("\nPLAYER GOT STUN\n");
 }
 
 gitem_t customItems[] =
@@ -179,7 +168,7 @@ gitem_t customItems[] =
 
 	{
 		"item_invulnerability",
-		Pickup_Defector,
+		Pickup_Stun,
 		NULL,
 		NULL,
 		NULL,
@@ -187,7 +176,7 @@ gitem_t customItems[] =
 		"models/items/invulner/tris.md2", EF_ROTATE,
 		NULL,
 		/* icon */		"p_invulnerability",
-		/* pickup */	"defector",
+		/* pickup */	"stun",
 		/* width */		2,
 		300,
 		NULL,
