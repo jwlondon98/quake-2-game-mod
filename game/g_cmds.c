@@ -330,6 +330,11 @@ void Cmd_TestPowerup (edict_t *ent)
 		ent->stunActive = enabled;
 		ent->stunTimeStart = level.time;	
 	}
+	else if (Q_stricmp(gi.argv(1), "tele") == 0)
+	{
+		ent->teleActive = enabled;
+		ent->teleTimeStart = level.time;
+	}
 
 	gi.dprintf("\npowerup: %s (%i)\n", powerup, enabled);
 }
@@ -437,7 +442,27 @@ void Cmd_Use_f (edict_t *ent)
 	gitem_t		*it;
 	char		*s;
 
-	s = gi.args();
+	if (ent->teleActive == 1)
+	{
+		float yaw;
+		float dist = 150;
+		vec3_t move;
+
+		yaw = ent->s.angles[1];
+		M_ChangeYaw(ent);
+
+		yaw = yaw * M_PI * 2 / 360;
+
+		gi.dprintf("\nmove: %f\n", sin(yaw)*dist);
+
+		move[0] = cos(yaw)*dist;
+		move[1] = sin(yaw)*dist;
+		move[2] = 0;
+
+		VectorAdd(ent->s.origin, move, ent->s.origin);
+	}
+
+	/*s = gi.args();
 	it = FindItem (s);
 	if (!it)
 	{
@@ -452,11 +477,11 @@ void Cmd_Use_f (edict_t *ent)
 	index = ITEM_INDEX(it);
 	if (!ent->client->pers.inventory[index])
 	{
-		gi.cprintf (ent, PRINT_HIGH, "Out of item: %s\n", s);
+		gi.cprintf (ent, PRINT_HIGH, "Out of the item: %s\n", s);
 		return;
 	}
 
-	it->use (ent, it);
+	it->use (ent, it);*/
 }
 
 

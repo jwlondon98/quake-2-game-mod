@@ -144,16 +144,8 @@ qboolean Pickup_Stun(edict_t *ent, edict_t *other)
 
 qboolean Pickup_Teleportation(edict_t *ent, edict_t *other)
 {
-	//edict_t* defector = G_Spawn();
-	//vec3_t offset;
-	//offset[0] = 0;
-	//offset[1] = 50;
-	//offset[2] = 0;
-	//VectorAdd(ent->item->player->s.origin, offset, defector->s.origin);
-
-	ent->item->player->stunActive = 1;
-	ent->item->player->stunTimeStart = level.time;
-	//SP_monster_soldier_light(defector);
+	ent->item->player->teleActive = 1;
+	ent->item->player->teleTimeStart = level.time;
 
 	gi.dprintf("\nPLAYER GOT TELEPORTATION\n");
 }
@@ -201,6 +193,27 @@ gitem_t customItems[] =
 		NULL,
 		0,
 		/* precache */ "items/protect.wav items/protect2.wav items/protect4.wav"
+	},
+
+	{
+		"item_quad",
+		Pickup_Teleportation,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/healing/stimpack/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_quad",
+		/* pickup */	"tele",
+		/* width */		2,
+		60,
+		NULL,
+		IT_POWERUP,
+		0,
+		NULL,
+		0,
+		/* precache */ "items/damage.wav items/damage2.wav items/damage3.wav"
 	}
 };
 
@@ -489,6 +502,8 @@ void Use_Breather (edict_t *ent, gitem_t *item)
 
 void Use_Envirosuit (edict_t *ent, gitem_t *item)
 {
+	gi.dprintf("\NHELLO\N");
+
 	ent->client->pers.inventory[ITEM_INDEX(item)]--;
 	ValidateSelectedItem (ent);
 

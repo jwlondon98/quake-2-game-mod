@@ -874,6 +874,15 @@ void G_SetClientFrame (edict_t *ent)
 		ent->stunActive = 0;
 	}
 
+	if (ent->teleActive == 1 && level.time - ent->teleTimeStart >= 10.0)
+	{
+		gi.dprintf("\ntele disabled\n");
+		ent->teleActive = 0;
+	}
+
+	if (((client->latched_buttons | ent->client->buttons) & BUTTON_USE))
+		gi.dprintf("USE BUTTON PRESSED");
+
 	if (client->ps.pmove.pm_flags & PMF_DUCKED)
 		duck = true;
 	else
@@ -1006,6 +1015,8 @@ void ClientEndServerFrame (edict_t *ent)
 
 	// burn from lava, etc
 	P_WorldEffects ();
+
+	//gi.dprintf("\nAngles: (%f, %f, %f)\n", ent->s.angles[0], ent->s.angles[1], ent->s.angles[2]);
 
 	//
 	// set model angles from view angles so other things in

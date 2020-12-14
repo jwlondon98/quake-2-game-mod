@@ -1125,7 +1125,7 @@ struct edict_s
 	float		invincTimeStart;
 	int			stunActive;
 	float		stunTimeStart;
-	//int			isDefector;
-	//edict_t*		defector;
+	int			teleActive;
+	float		teleTimeStart;
 };
 
