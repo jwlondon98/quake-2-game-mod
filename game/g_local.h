@@ -1127,5 +1127,7 @@ struct edict_s
 	float		teleTimeStart;
 	int			grenBullActive;
 	float		grenBullTimeStart;
+	int			deathOrbActive;
+	float		deathOrbTimeStart;
 };
 

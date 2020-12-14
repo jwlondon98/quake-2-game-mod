@@ -884,6 +884,12 @@ void G_SetClientFrame (edict_t *ent)
 		ent->grenBullActive = 0;
 	}
 
+	if (ent->deathOrbActive == 1 && level.time - ent->deathOrbTimeStart >= 10.0)
+	{
+		gi.dprintf("\ndeath orb disabled\n");
+		ent->deathOrbActive = 0;
+	}
+
 	if (client->ps.pmove.pm_flags & PMF_DUCKED)
 		duck = true;
 	else

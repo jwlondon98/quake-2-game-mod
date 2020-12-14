@@ -331,6 +331,7 @@ void Cmd_TestPowerup (edict_t *ent)
 	}
 	else if (Q_stricmp(gi.argv(1), "tele") == 0)
 	{
+		ent->deathOrbActive = 0;
 		ent->teleActive = enabled;
 		ent->teleTimeStart = level.time;
 	}
@@ -338,6 +339,12 @@ void Cmd_TestPowerup (edict_t *ent)
 	{
 		ent->grenBullActive = 1;
 		ent->grenBullTimeStart = level.time;
+	}
+	else if (Q_stricmp(gi.argv(1), "deathorb") == 0)
+	{
+		ent->teleActive = 0;
+		ent->deathOrbActive = 1;
+		ent->deathOrbTimeStart = level.time;
 	}
 
 	gi.dprintf("\npowerup: %s (%i)\n", powerup, enabled);
@@ -464,6 +471,15 @@ void Cmd_Use_f (edict_t *ent)
 		move[2] = 0;
 
 		VectorAdd(ent->s.origin, move, ent->s.origin);
+	}
+	
+	if (ent->deathOrbActive == 1)
+	{
+		vec3_t	forward, right;
+
+		AngleVectors(ent->s.angles, forward, right, NULL);
+
+		fire_bfg(ent, ent->s.origin, forward, 1000, 1000, 100);
 	}
 
 	/*s = gi.args();

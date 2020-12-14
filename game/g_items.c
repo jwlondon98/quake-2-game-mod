@@ -144,6 +144,7 @@ qboolean Pickup_Stun(edict_t *ent, edict_t *other)
 
 qboolean Pickup_Teleportation(edict_t *ent, edict_t *other)
 {
+	ent->item->player->deathOrbActive = 0;
 	ent->item->player->teleActive = 1;
 	ent->item->player->teleTimeStart = level.time;
 
@@ -156,6 +157,15 @@ qboolean Pickup_GrenadeBullets(edict_t *ent, edict_t *other)
 	ent->item->player->grenBullTimeStart = level.time;
 
 	gi.dprintf("\nPLAYER GOT GRENADE BULLETS\n");
+}
+
+qboolean Pickup_DeathOrb(edict_t *ent, edict_t *other)
+{
+	ent->item->player->teleActive = 0;
+	ent->item->player->deathOrbActive = 1;
+	ent->item->player->deathOrbTimeStart = level.time;
+
+	gi.dprintf("\nPLAYER GOT DEATH ORB\n");
 }
 
 gitem_t customItems[] =
@@ -235,6 +245,27 @@ gitem_t customItems[] =
 		NULL,
 		/* icon */		"p_adrenaline",
 		/* pickup */	"grenbull",
+		/* width */		2,
+		60,
+		NULL,
+		0,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
+	
+	{
+		"item_ancient_head",
+		Pickup_DeathOrb,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/c_head/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_fixme",
+		/* pickup */	"deathorb",
 		/* width */		2,
 		60,
 		NULL,
