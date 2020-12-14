@@ -411,6 +411,10 @@ void soldier_pain (edict_t *self, edict_t *other, float kick, int damage)
 	float	r;
 	int		n;
 
+	if (self->health > 0)
+		gi.dprintf("\nENEMY HEALTH: %i\n", self->health);
+
+
 	if (self->health < (self->max_health / 2))
 			self->s.skinnum |= 1;
 
@@ -525,6 +529,73 @@ void soldier_fire (edict_t *self, int flash_number)
 
 // ATTACK1 (blaster/shotgun)
 
+// BOSS 1 FIRE
+void bossSoldier_fire1(edict_t *self)
+{
+	vec3_t	start;
+	vec3_t	forward, right, up;
+	vec3_t	aim;
+	vec3_t	dir;
+	vec3_t	end;
+	float	r, u;
+	int		flash_index;
+
+	int flash_number = 0;
+
+	if (self->s.skinnum < 2)
+		flash_index = blaster_flash[flash_number];
+	else if (self->s.skinnum < 4)
+		flash_index = shotgun_flash[flash_number];
+	else
+		flash_index = machinegun_flash[flash_number];
+
+	AngleVectors(self->s.angles, forward, right, NULL);
+	G_ProjectSource(self->s.origin, monster_flash_offset[flash_index], forward, right, start);
+
+	if (flash_number == 5 || flash_number == 6)
+	{
+		VectorCopy(forward, aim);
+	}
+	else
+	{
+		VectorCopy(self->enemy->s.origin, end);
+		end[2] += self->enemy->viewheight;
+		VectorSubtract(end, start, aim);
+		vectoangles(aim, dir);
+		AngleVectors(dir, forward, right, up);
+
+		r = crandom() * 1000;
+		u = crandom() * 500;
+		VectorMA(start, 8192, forward, end);
+		VectorMA(end, r, right, end);
+		VectorMA(end, u, up, end);
+
+		VectorSubtract(end, start, aim);
+		VectorNormalize(aim);
+	}
+
+	if (self->s.skinnum <= 1)
+	{
+		monster_fire_rocket(self, start, aim, 5, 1000, flash_index, EF_ROCKET);
+	}
+	else if (self->s.skinnum <= 3)
+	{
+		monster_fire_rocket(self, start, aim, 5, 1000, flash_index, EF_ROCKET);
+	}
+	else
+	{
+		if (!(self->monsterinfo.aiflags & AI_HOLD_FRAME))
+			self->monsterinfo.pausetime = level.time + (3 + rand() % 8) * FRAMETIME;
+
+		monster_fire_bullet(self, start, aim, 2, 4, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, flash_index);
+
+		if (level.time >= self->monsterinfo.pausetime)
+			self->monsterinfo.aiflags &= ~AI_HOLD_FRAME;
+		else
+			self->monsterinfo.aiflags |= AI_HOLD_FRAME;
+	}
+}
+
 void soldier_fire1 (edict_t *self)
 {
 	soldier_fire (self, 0);
@@ -572,6 +643,23 @@ mframe_t soldier_frames_attack1 [] =
 	ai_charge, 0,  NULL
 };
 mmove_t soldier_move_attack1 = {FRAME_attak101, FRAME_attak112, soldier_frames_attack1, soldier_run};
+
+mframe_t soldier_frames_bossattack1[] =
+{
+	ai_charge, 0,  bossSoldier_fire1,
+	ai_charge, 0,  NULL,
+	ai_charge, 0,  NULL,
+	ai_charge, 0,  bossSoldier_fire1,
+	ai_charge, 0,  NULL,
+	ai_charge, 0,  NULL,
+	ai_charge, 0,  bossSoldier_fire1,
+	ai_charge, 0,  NULL,
+	ai_charge, 0,  NULL,
+	ai_charge, 0,  bossSoldier_fire1,
+	ai_charge, 0,  NULL,
+	ai_charge, 0,  NULL
+};
+mmove_t soldier_move_bossattack1 = { FRAME_attak101, FRAME_attak112, soldier_frames_bossattack1, bossSoldier_fire1 };
 
 // ATTACK2 (blaster/shotgun)
 
@@ -784,6 +872,10 @@ void soldier_attack(edict_t *self)
 	}
 }
 
+void soldier_boss_attack(edict_t *self)
+{
+	self->monsterinfo.currentmove = &soldier_move_bossattack1;
+}
 
 //
 // SIGHT
@@ -1192,6 +1284,60 @@ void soldier_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int dama
 		self->monsterinfo.currentmove = &soldier_move_death6;
 }
 
+void boss1_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
+{
+	int		n;
+
+	inflictor->client->pers.numBossesKilled++;
+
+	// check for gib
+	if (self->health <= self->gib_health)
+	{
+		gi.sound(self, CHAN_VOICE, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
+		for (n = 0; n < 3; n++)
+			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2", damage, GIB_ORGANIC);
+		ThrowGib(self, "models/objects/gibs/chest/tris.md2", damage, GIB_ORGANIC);
+		ThrowHead(self, "models/objects/gibs/head2/tris.md2", damage, GIB_ORGANIC);
+		self->deadflag = DEAD_DEAD;
+		return;
+	}
+
+	if (self->deadflag == DEAD_DEAD)
+		return;
+
+	// regular death
+	self->deadflag = DEAD_DEAD;
+	self->takedamage = DAMAGE_YES;
+	self->s.skinnum |= 1;
+
+	if (self->s.skinnum == 1)
+		gi.sound(self, CHAN_VOICE, sound_death_light, 1, ATTN_NORM, 0);
+	else if (self->s.skinnum == 3)
+		gi.sound(self, CHAN_VOICE, sound_death, 1, ATTN_NORM, 0);
+	else // (self->s.skinnum == 5)
+		gi.sound(self, CHAN_VOICE, sound_death_ss, 1, ATTN_NORM, 0);
+
+	if (fabs((self->s.origin[2] + self->viewheight) - point[2]) <= 4)
+	{
+		// head shot
+		self->monsterinfo.currentmove = &soldier_move_death3;
+		return;
+	}
+
+	n = rand() % 5;
+	if (n == 0)
+		self->monsterinfo.currentmove = &soldier_move_death1;
+	else if (n == 1)
+		self->monsterinfo.currentmove = &soldier_move_death2;
+	else if (n == 2)
+		self->monsterinfo.currentmove = &soldier_move_death4;
+	else if (n == 3)
+		self->monsterinfo.currentmove = &soldier_move_death5;
+	else
+		self->monsterinfo.currentmove = &soldier_move_death6;
+
+	inflictor->numBossesKilled += 1;
+}
 
 //
 // SPAWN
@@ -1295,5 +1441,50 @@ void SP_monster_soldier_ss (edict_t *self)
 
 	self->s.skinnum = 4;
 	self->health = 1;
+	self->gib_health = -30;
+}
+
+void SP_monster_solider_boss(edict_t *self)
+{
+	self->s.modelindex = gi.modelindex("models/monsters/soldier/tris.md2");
+	self->monsterinfo.scale = MODEL_SCALE;
+	VectorSet(self->mins, -16, -16, -24);
+	VectorSet(self->maxs, 16, 16, 32);
+	self->movetype = MOVETYPE_STEP;
+	self->solid = SOLID_BBOX;
+
+	sound_idle = gi.soundindex("soldier/solidle1.wav");
+	sound_sight1 = gi.soundindex("soldier/solsght1.wav");
+	sound_sight2 = gi.soundindex("soldier/solsrch1.wav");
+	sound_cock = gi.soundindex("infantry/infatck3.wav");
+
+	self->mass = 100;
+
+	self->pain = soldier_pain;
+	self->die = boss1_die;
+
+	self->monsterinfo.stand = soldier_stand;
+	self->monsterinfo.walk = soldier_boss_attack;
+	self->monsterinfo.run = soldier_boss_attack;
+	self->monsterinfo.dodge = soldier_boss_attack;
+	self->monsterinfo.attack = soldier_boss_attack;
+	self->monsterinfo.melee = NULL;
+	self->monsterinfo.sight = soldier_sight;
+
+	gi.linkentity(self);
+
+	self->monsterinfo.stand(self);
+
+	walkmonster_start(self);
+
+	sound_pain_light = gi.soundindex("soldier/solpain2.wav");
+	sound_death_light = gi.soundindex("soldier/soldeth2.wav");
+	gi.modelindex("models/objects/laser/tris.md2");
+	gi.soundindex("misc/lasfly.wav");
+	gi.soundindex("soldier/solatck2.wav");
+
+	self->s.skinnum = 0;
+	self->health = 10;
+	self->max_health = 10;
 	self->gib_health = -30;
 }

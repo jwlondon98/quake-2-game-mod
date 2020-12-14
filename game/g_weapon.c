@@ -143,6 +143,9 @@ static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, i
 	qboolean	water = false;
 	int			content_mask = MASK_SHOT | MASK_WATER;
 
+	// PRINT POSITION
+	gi.dprintf("\nPOS: (%f, %f, %f)\n", self->s.origin[0], self->s.origin[1], self->s.origin[2]);
+
 	tr = gi.trace (self->s.origin, NULL, NULL, start, self, MASK_SHOT);
 	
 	if (!(tr.fraction < 1.0))
@@ -292,7 +295,7 @@ pistols, rifles, etc....
 */
 void fire_bullet (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int hspread, int vspread, int mod)
 {
-	fire_lead (self, start, aimdir, damage, kick, TE_GUNSHOT, hspread, vspread, mod);
+	fire_lead (self, start, aimdir, 1, kick, TE_GUNSHOT, hspread, vspread, mod);
 }
 
 
@@ -308,7 +311,7 @@ void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int k
 	int		i;
 
 	for (i = 0; i < count; i++)
-		fire_lead (self, start, aimdir, damage, kick, TE_SHOTGUN, hspread, vspread, mod);
+		fire_lead (self, start, aimdir, 1, kick, TE_SHOTGUN, hspread, vspread, mod);
 }
 
 
@@ -388,7 +391,7 @@ void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int spee
 	bolt->touch = blaster_touch;
 	bolt->nextthink = level.time + 2;
 	bolt->think = G_FreeEdict;
-	bolt->dmg = damage;
+	bolt->dmg = 1;
 	bolt->classname = "bolt";
 	if (hyper)
 		bolt->spawnflags = 1;
@@ -525,7 +528,7 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 	grenade->touch = Grenade_Touch;
 	grenade->nextthink = level.time + timer;
 	grenade->think = Grenade_Explode;
-	grenade->dmg = damage;
+	grenade->dmg = 2;
 	grenade->dmg_radius = damage_radius;
 	grenade->classname = "grenade";
 
@@ -620,7 +623,7 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 		}
 	}
 
-	T_RadiusDamage(ent, ent->owner, ent->radius_dmg, other, ent->dmg_radius, MOD_R_SPLASH);
+	T_RadiusDamage(ent, ent->owner, ent->radius_dmg, ent->owner, ent->dmg_radius, MOD_R_SPLASH);
 
 	gi.WriteByte (svc_temp_entity);
 	if (ent->waterlevel)
@@ -642,7 +645,7 @@ void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 	VectorCopy (dir, rocket->movedir);
 	vectoangles (dir, rocket->s.angles);
 	VectorScale (dir, speed, rocket->velocity);
-	rocket->movetype = MOVETYPE_FLYMISSILE;
+	rocket->movetype = MOVETYPE_FLY;
 	rocket->clipmask = MASK_SHOT;
 	rocket->solid = SOLID_BBOX;
 	rocket->s.effects |= EF_ROCKET;
@@ -653,7 +656,7 @@ void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 	rocket->touch = rocket_touch;
 	rocket->nextthink = level.time + 8000/speed;
 	rocket->think = G_FreeEdict;
-	rocket->dmg = damage;
+	rocket->dmg = 2;
 	rocket->radius_dmg = radius_damage;
 	rocket->dmg_radius = damage_radius;
 	rocket->s.sound = gi.soundindex ("weapons/rockfly.wav");

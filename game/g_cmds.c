@@ -311,7 +311,17 @@ void Cmd_Spawn_f (edict_t *ent)
 {
 	gi.dprintf("%s", "CMD SPAWN BOSS");
 
-	
+	char* bossName = gi.argv(2);
+
+	edict_t* boss = G_Spawn();
+	vec3_t offset;
+	offset[0] = 0;
+	offset[1] = 150;
+	offset[2] = 0;
+	VectorAdd(ent->s.origin, offset, boss->s.origin);
+
+	if (Q_stricmp(bossName, "stank"))
+		SP_monster_supertank(boss);
 }
 
 void Cmd_TestPowerup (edict_t *ent)
@@ -348,6 +358,36 @@ void Cmd_TestPowerup (edict_t *ent)
 	}
 
 	gi.dprintf("\npowerup: %s (%i)\n", powerup, enabled);
+}
+
+void Cmd_TP_f(edict_t *ent)
+{
+	int tpNum = atoi(gi.argv(1));
+
+	vec3_t tpPos;
+
+	if (tpNum == 1)
+	{
+		tpPos[0] = -1553.375;
+		tpPos[1] = 1554.375;
+		tpPos[2] = 180;
+	}
+	else if (tpNum == 2)
+	{
+		tpPos[0] = -526;
+		tpPos[1] = 92.625;
+		tpPos[2] = -151.875;
+	}
+	 
+	VectorCopy(tpPos, ent->s.origin);
+}
+
+void Cmd_PrintLevelName_f(edict_t *ent)
+{
+	//int *lvlNum = atoi(gi.argv(2));
+	gi.dprintf("\nNUM BOSSES KILLED: %i\n", ent->client->pers.numBossesKilled);
+	gi.dprintf("\nboss 1 spawned: %i\n", ent->boss1Spawned);
+	gi.dprintf("\nboss 2 spawned: %i\n", ent->boss2Spawned);
 }
 
 /*
@@ -479,7 +519,7 @@ void Cmd_Use_f (edict_t *ent)
 
 		AngleVectors(ent->s.angles, forward, right, NULL);
 
-		fire_bfg(ent, ent->s.origin, forward, 1000, 1000, 100);
+		fire_bfg(ent, ent->s.origin, forward, 2, 1000, 100);
 	}
 
 	/*s = gi.args();
@@ -1036,7 +1076,11 @@ void ClientCommand (edict_t *ent)
 		Cmd_Give_f(ent);
 	else if (Q_stricmp(cmd, "powerup") == 0)
 		Cmd_TestPowerup(ent);
-	else if (Q_stricmp(cmd, "spawnboss") == 0)
+	else if (Q_stricmp(cmd, "tp") == 0)
+		Cmd_TP_f(ent);
+	else if (Q_stricmp(cmd, "pln") == 0)
+		Cmd_PrintLevelName_f(ent);
+	else if (Q_stricmp(cmd, "spawn") == 0)
 		Cmd_Spawn_f(ent);
 	else if (Q_stricmp (cmd, "god") == 0)
 		Cmd_God_f (ent);

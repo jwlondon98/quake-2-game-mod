@@ -866,6 +866,8 @@ typedef struct
 	int			helpchanged;
 
 	qboolean	spectator;			// client is a spectator
+
+	int			numBossesKilled;
 } client_persistant_t;
 
 // client data that stays across deathmatch respawns
@@ -1129,5 +1131,14 @@ struct edict_s
 	float		grenBullTimeStart;
 	int			deathOrbActive;
 	float		deathOrbTimeStart;
+
+	// putting boss spawn vars here cus i wanna
+	int			boss1Spawned;
+	int			boss2Spawned;
+	int			boss3Spawned;
+
+	edict_t		*player;
+
+	int			numBossesKilled;
 };
 

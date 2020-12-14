@@ -859,6 +859,39 @@ void G_SetClientFrame (edict_t *ent)
 		return;		// not in the player model
 
 	client = ent->client;
+	
+	
+	if (ent->client->pers.numBossesKilled == 0 && ent->boss1Spawned == 0)
+	{
+		edict_t* boss = G_Spawn();
+		vec3_t spawnPos;
+		spawnPos[0] = -1553.375;
+		spawnPos[1] = 1554.375;
+		spawnPos[2] = 120.125;
+		
+		//testing pos
+		/*spawnPos[0] = -390.125;
+		spawnPos[1] = 91.875;
+		spawnPos[2] = -23.875;*/
+			
+		VectorAdd(boss->s.origin, spawnPos, boss->s.origin);
+		boss->player = ent;
+		SP_monster_solider_boss(boss);
+		ent->boss1Spawned = 1;
+	}
+	else if (ent->client->pers.numBossesKilled == 1 && ent->boss1Spawned == 0 && ent->boss2Spawned == 0)
+	{
+		edict_t* boss = G_Spawn();
+		vec3_t spawnPos;
+		spawnPos[0] = -963.25;
+		spawnPos[1] = -99.25;
+		spawnPos[2] = -135.875;
+
+		VectorAdd(boss->s.origin, spawnPos, boss->s.origin);
+		boss->player = ent;
+		SP_monster_solider_boss(boss);
+		ent->boss2Spawned = 1;
+	}
 
 	if (ent->invincActive == 1 && level.time - ent->invincTimeStart >= 10.0)
 	{

@@ -387,8 +387,8 @@ void MonsterDropRandomItem(edict_t* itemEnt, edict_t* player)
 	srand((unsigned)time(&t));
 
 	char* itemName;
-	int arrLength = 4;
-	int index = 8;// rand() % arrLength;
+	int arrLength = 8;
+	int index = rand() % arrLength;
 
 	// determine what item to spawn
 	itemName = items[index];
@@ -637,6 +637,13 @@ void T_RadiusDamage (edict_t *inflictor, edict_t *attacker, float damage, edict_
 				if (!Q_stricmp(inflictor->classname, "player") ||
 					!Q_stricmp(ent->classname, "player"))
 					return;
+
+				if (inflictor == ent)
+				{
+					gi.dprintf("inflictor = ent");
+					return;
+				}
+
 				T_Damage (ent, inflictor, attacker, dir, inflictor->s.origin, vec3_origin, (int)points, (int)points, DAMAGE_RADIUS, mod);
 			}
 		}
