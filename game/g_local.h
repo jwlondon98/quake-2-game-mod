@@ -1138,6 +1138,9 @@ struct edict_s
 	int			boss3Spawned;
 
 	edict_t		*player;
+	edict_t		*boss1;
+	edict_t		*boss2;
+	edict_t		*boss3;
 
 	int			numBossesKilled;
 };

@@ -682,6 +682,7 @@ void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick
 	edict_t		*ignore;
 	int			mask;
 	qboolean	water;
+	int i;
 
 	VectorMA (start, 8192, aimdir, end);
 	VectorCopy (start, from);

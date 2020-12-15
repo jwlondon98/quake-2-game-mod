@@ -378,8 +378,36 @@ void Cmd_TP_f(edict_t *ent)
 		tpPos[1] = 92.625;
 		tpPos[2] = -151.875;
 	}
+	else if (tpNum == 3)
+	{
+		tpPos[0] = -425.875;
+		tpPos[1] = -914.375;
+		tpPos[2] = -279.875;
+	}
 	 
 	VectorCopy(tpPos, ent->s.origin);
+}
+
+void Cmd_KillBoss_f(edict_t *ent)
+{
+	int bossNum = atoi(gi.argv(1));
+
+	if (bossNum == 1)
+	{
+		ent->boss1->health = -100;
+		ent->boss1->die(ent->boss1, ent, ent, 1000, ent->boss1->s.origin);
+	
+	}
+	else if (bossNum == 2)
+	{
+		ent->boss2->health = -100;
+		ent->boss2->die(ent->boss2, ent, ent, 1000, ent->boss2->s.origin);
+	}
+	else if (bossNum == 3)
+	{
+		ent->boss3->health = -100;
+		ent->boss3->die(ent->boss3, ent, ent, 1000, ent->boss3->s.origin);
+	}
 }
 
 void Cmd_PrintLevelName_f(edict_t *ent)
@@ -1078,6 +1106,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_TestPowerup(ent);
 	else if (Q_stricmp(cmd, "tp") == 0)
 		Cmd_TP_f(ent);
+	else if (Q_stricmp(cmd, "killboss") == 0)
+		Cmd_KillBoss_f(ent);
 	else if (Q_stricmp(cmd, "pln") == 0)
 		Cmd_PrintLevelName_f(ent);
 	else if (Q_stricmp(cmd, "spawn") == 0)
