@@ -144,7 +144,7 @@ static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, i
 	int			content_mask = MASK_SHOT | MASK_WATER;
 
 	// PRINT POSITION
-	gi.dprintf("\nPOS: (%f, %f, %f)\n", self->s.origin[0], self->s.origin[1], self->s.origin[2]);
+	//gi.dprintf("\nPOS: (%f, %f, %f)\n", self->s.origin[0], self->s.origin[1], self->s.origin[2]);
 
 	tr = gi.trace (self->s.origin, NULL, NULL, start, self, MASK_SHOT);
 	

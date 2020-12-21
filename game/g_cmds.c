@@ -416,6 +416,7 @@ void Cmd_PrintLevelName_f(edict_t *ent)
 	gi.dprintf("\nNUM BOSSES KILLED: %i\n", ent->client->pers.numBossesKilled);
 	gi.dprintf("\nboss 1 spawned: %i\n", ent->boss1Spawned);
 	gi.dprintf("\nboss 2 spawned: %i\n", ent->boss2Spawned);
+	gi.dprintf("\nboss 3 spawned: %i\n", ent->boss3Spawned);
 }
 
 /*
@@ -1064,6 +1065,7 @@ void ClientCommand (edict_t *ent)
 		return;		// not fully in game yet
 
 	cmd = gi.argv(0);
+	//gi.dprintf("COMMAND: %s", cmd);
 
 	if (Q_stricmp (cmd, "players") == 0)
 	{
@@ -1090,7 +1092,11 @@ void ClientCommand (edict_t *ent)
 		Cmd_Help_f (ent);
 		return;
 	}
-
+	if (Q_stricmp(cmd, "showproj") == 0)
+	{
+		Cmd_ProjectUI_f(ent);
+		return;
+	}
 	if (level.intermissiontime)
 		return;
 
@@ -1119,7 +1125,7 @@ void ClientCommand (edict_t *ent)
 	else if (Q_stricmp (cmd, "noclip") == 0)
 		Cmd_Noclip_f (ent);
 	else if (Q_stricmp (cmd, "inven") == 0)
-		Cmd_Inven_f (ent);
+		Cmd_ProjectUI_f(ent);
 	else if (Q_stricmp (cmd, "invnext") == 0)
 		SelectNextItem (ent, -1);
 	else if (Q_stricmp (cmd, "invprev") == 0)

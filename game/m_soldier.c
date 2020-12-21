@@ -1288,7 +1288,9 @@ void boss1_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damage,
 {
 	int		n;
 
+	gi.dprintf("BOSS 1 DEAD");
 	inflictor->client->pers.numBossesKilled++;
+	UpdatePlayerScore(inflictor);
 
 	// check for gib
 	if (self->health <= self->gib_health)
@@ -1335,8 +1337,6 @@ void boss1_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damage,
 		self->monsterinfo.currentmove = &soldier_move_death5;
 	else
 		self->monsterinfo.currentmove = &soldier_move_death6;
-
-	inflictor->numBossesKilled += 1;
 }
 
 //

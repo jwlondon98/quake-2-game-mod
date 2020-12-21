@@ -810,6 +810,9 @@ void tank_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage,
 	int		n;
 
 	gi.dprintf("\nTANK BOSS DEAD\n");
+	inflictor->client->pers.numBossesKilled++;
+	UpdatePlayerScore(inflictor);
+
 
 // check for gib
 	//if (self->health <= self->gib_health)

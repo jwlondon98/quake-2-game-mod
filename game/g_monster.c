@@ -739,3 +739,242 @@ void swimmonster_start (edict_t *self)
 	self->think = swimmonster_start_go;
 	monster_start (self);
 }
+
+void UpdatePlayerScore(edict_t *ent)
+{
+	gi.dprintf("UPDATE PLAYER SCORE CALLED");	
+
+	// rating vars
+	int numKills;
+	float timeTaken;
+	int A, B, C, D;
+	int totalPoints;
+	int timeTakenPoints;
+	int killEnemiesBonusPoints;
+	int killBossBonusPoints;
+	int numEnemyKillsOnPace; // the number of enemies that the player can kill without going too far off pace
+	char rating;
+
+	if (ent->classname == "player")
+	{
+		numKills = ent->kills;
+		timeTaken = ent->timeTaken;
+		totalPoints = ent->points;
+		gi.dprintf("\n%s %i %s %i", "Total Player Kills: ", numKills, " Total Kill Points: ", totalPoints);
+		//gi.dprintf("\n%s %f %s", "Total Time Taken: ", timeTaken, "\n\n");
+
+		if (level.levelNum == 0)
+		{
+			numEnemyKillsOnPace = 10;
+
+			// rating by points
+			A = 2000;
+			B = 1400;
+			C = 700;
+			D = 400;
+
+			// calc points to add based on time taken
+			if (timeTaken <= 40)
+				timeTakenPoints = 1000;
+			else if (timeTaken > 40 && timeTaken <= 45)
+				timeTakenPoints = 700;
+			else if (timeTaken > 45 && timeTaken <= 50)
+				timeTakenPoints = 400;
+			else if (timeTaken > 50)
+				timeTakenPoints = 100;
+			gi.dprintf("\n%s %f %s %i", "Time Taken: ", timeTaken, "Points added: ", timeTakenPoints);
+
+			// add kill all enemies on pace bonus points
+			if (numKills == numEnemyKillsOnPace)
+			{
+				gi.dprintf("\n%s", "All Level Entities Killed Bonus. 500 points added.");
+				killEnemiesBonusPoints = 500;
+			}
+			else
+			{
+				gi.dprintf("\n%s", "Not all level enties killed. No points added.");
+				killEnemiesBonusPoints = 0;
+			}
+
+			// kill boss bonus points
+			killBossBonusPoints = 0;
+			gi.dprintf("\n%s", "No boss kill. No points added.");
+
+			// add total points
+			totalPoints = totalPoints + timeTakenPoints + killEnemiesBonusPoints + killBossBonusPoints;
+
+			// calc rating based on total points
+			if (totalPoints >= 2000)
+				rating = 'A';
+			else if (totalPoints >= 1400 && totalPoints < 2000)
+				rating = 'B';
+			else if (totalPoints >= 700 && totalPoints < 1400)
+				rating = 'C';
+			else if (totalPoints >= 400 && totalPoints < 700)
+				rating = 'D';
+			else if (totalPoints < 400)
+				rating = 'F';
+			gi.dprintf("\n%s %c %s %i", "Rating: ", rating, "Total points: ", totalPoints);
+
+			int hs1, hs2, hs3, hs4, hs5;
+			hs1 = ent->client->pers.level1hs1;
+			hs2 = ent->client->pers.level1hs2;
+			hs3 = ent->client->pers.level1hs3;
+			hs4 = ent->client->pers.level1hs4;
+			hs5 = ent->client->pers.level1hs5;
+
+			if (totalPoints >= hs1)
+				ent->client->pers.level1hs1 = totalPoints;
+			else if (totalPoints < hs1 && totalPoints >= hs2)
+				ent->client->pers.level1hs2 = totalPoints;
+			else if (totalPoints < hs2 && totalPoints >= hs3)
+				ent->client->pers.level1hs3 = totalPoints;
+			else if (totalPoints < hs3 && totalPoints >= hs4)
+				ent->client->pers.level1hs4 = totalPoints;
+			else if (totalPoints < hs4 && totalPoints >= hs5)
+				ent->client->pers.level1hs5 = totalPoints;
+		}
+		else if (level.levelNum == 1)
+		{
+			numEnemyKillsOnPace = 10;
+
+			// rating by points
+			A = 2000;
+			B = 1400;
+			C = 700;
+			D = 400;
+
+			// calc points to add based on time taken
+			if (timeTaken <= 40)
+				timeTakenPoints = 1000;
+			else if (timeTaken > 40 && timeTaken <= 45)
+				timeTakenPoints = 700;
+			else if (timeTaken > 45 && timeTaken <= 50)
+				timeTakenPoints = 400;
+			else if (timeTaken > 50)
+				timeTakenPoints = 100;
+			gi.dprintf("\n%s %f %s %i", "Time Taken: ", timeTaken, "Points added: ", timeTakenPoints);
+
+			// add kill all enemies on pace bonus points
+			if (numKills == numEnemyKillsOnPace)
+			{
+				gi.dprintf("\n%s", "All Level Entities Killed Bonus. 500 points added.");
+				killEnemiesBonusPoints = 500;
+			}
+			else
+			{
+				gi.dprintf("\n%s", "Not all level enties killed. No points added.");
+				killEnemiesBonusPoints = 0;
+			}
+
+			// kill boss bonus points
+			killBossBonusPoints = 0;
+			gi.dprintf("\n%s", "No boss kill. No points added.");
+
+			// add total points
+			totalPoints = totalPoints + timeTakenPoints + killEnemiesBonusPoints + killBossBonusPoints;
+
+			// calc rating based on total points
+			if (totalPoints >= 2000)
+				rating = 'A';
+			else if (totalPoints >= 1400 && totalPoints < 2000)
+				rating = 'B';
+			else if (totalPoints >= 700 && totalPoints < 1400)
+				rating = 'C';
+			else if (totalPoints >= 400 && totalPoints < 700)
+				rating = 'D';
+			else if (totalPoints < 400)
+				rating = 'F';
+			gi.dprintf("\n%s %c %s %i", "Rating: ", rating, "Total points: ", totalPoints);
+
+			int hs1, hs2, hs3, hs4, hs5;
+			hs1 = ent->client->pers.level2hs1;
+			hs2 = ent->client->pers.level2hs2;
+			hs3 = ent->client->pers.level2hs3;
+			hs4 = ent->client->pers.level2hs4;
+			hs5 = ent->client->pers.level2hs5;
+
+			if (totalPoints >= hs1)
+				ent->client->pers.level2hs1 = totalPoints;
+			else if (totalPoints < hs1 && totalPoints >= hs2)
+				ent->client->pers.level2hs2 = totalPoints;
+			else if (totalPoints < hs2 && totalPoints >= hs3)
+				ent->client->pers.level2hs3 = totalPoints;
+			else if (totalPoints < hs3 && totalPoints >= hs4)
+				ent->client->pers.level2hs4 = totalPoints;
+			else if (totalPoints < hs4 && totalPoints >= hs5)
+				ent->client->pers.level2hs5 = totalPoints;
+		}
+		else if (level.levelNum == 2)
+		{
+		numEnemyKillsOnPace = 10;
+
+		// rating by points
+		A = 2000;
+		B = 1400;
+		C = 700;
+		D = 400;
+
+		// calc points to add based on time taken
+		if (timeTaken <= 40)
+			timeTakenPoints = 1000;
+		else if (timeTaken > 40 && timeTaken <= 45)
+			timeTakenPoints = 700;
+		else if (timeTaken > 45 && timeTaken <= 50)
+			timeTakenPoints = 400;
+		else if (timeTaken > 50)
+			timeTakenPoints = 100;
+		gi.dprintf("\n%s %f %s %i", "Time Taken: ", timeTaken, "Points added: ", timeTakenPoints);
+
+		// add kill all enemies on pace bonus points
+		if (numKills == numEnemyKillsOnPace)
+		{
+			gi.dprintf("\n%s", "All Level Entities Killed Bonus. 500 points added.");
+			killEnemiesBonusPoints = 500;
+		}
+		else
+		{
+			gi.dprintf("\n%s", "Not all level enties killed. No points added.");
+			killEnemiesBonusPoints = 0;
+		}
+
+		// kill boss bonus points
+		killBossBonusPoints = 0;
+		gi.dprintf("\n%s", "No boss kill. No points added.");
+
+		// add total points
+		totalPoints = totalPoints + timeTakenPoints + killEnemiesBonusPoints + killBossBonusPoints;
+
+		// calc rating based on total points
+		if (totalPoints >= 2000)
+			rating = 'A';
+		else if (totalPoints >= 1400 && totalPoints < 2000)
+			rating = 'B';
+		else if (totalPoints >= 700 && totalPoints < 1400)
+			rating = 'C';
+		else if (totalPoints >= 400 && totalPoints < 700)
+			rating = 'D';
+		else if (totalPoints < 400)
+			rating = 'F';
+		gi.dprintf("\n%s %c %s %i", "Rating: ", rating, "Total points: ", totalPoints);
+
+		int hs1, hs2, hs3, hs4, hs5;
+		hs1 = ent->client->pers.level3hs1;
+		hs2 = ent->client->pers.level3hs2;
+		hs3 = ent->client->pers.level3hs3;
+		hs4 = ent->client->pers.level3hs4;
+		hs5 = ent->client->pers.level3hs5;
+
+		if (totalPoints >= hs1)
+			ent->client->pers.level3hs1 = totalPoints;
+		else if (totalPoints < hs1 && totalPoints >= hs2)
+			ent->client->pers.level3hs2 = totalPoints;
+		else if (totalPoints < hs2 && totalPoints >= hs3)
+			ent->client->pers.level3hs3 = totalPoints;
+		else if (totalPoints < hs3 && totalPoints >= hs4)
+			ent->client->pers.level3hs4 = totalPoints;
+		else if (totalPoints < hs4 && totalPoints >= hs5)
+			ent->client->pers.level3hs5 = totalPoints;
+		}
+	}
+}

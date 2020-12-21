@@ -860,7 +860,6 @@ void G_SetClientFrame (edict_t *ent)
 
 	client = ent->client;
 	
-	
 	if (ent->client->pers.numBossesKilled == 0 && ent->boss1Spawned == 0)
 	{
 		edict_t* boss = G_Spawn();
@@ -877,11 +876,14 @@ void G_SetClientFrame (edict_t *ent)
 		VectorAdd(boss->s.origin, spawnPos, boss->s.origin);
 		boss->player = ent;
 		SP_monster_solider_boss(boss);
+		//SP_monster_jorg(boss);
 		ent->boss1 = boss;
 		ent->boss1Spawned = 1;
 	}
 	else if (ent->client->pers.numBossesKilled == 1 && ent->boss1Spawned == 0 && ent->boss2Spawned == 0)
 	{
+		level.levelNum++;
+
 		edict_t* boss = G_Spawn();
 		vec3_t spawnPos;
 		spawnPos[0] = -921.75;
@@ -896,6 +898,8 @@ void G_SetClientFrame (edict_t *ent)
 	}
 	else if (ent->client->pers.numBossesKilled == 2 && ent->boss1Spawned == 0 && ent->boss2Spawned == 0  && ent->boss3Spawned == 0)
 	{
+		level.levelNum++;
+
 		edict_t* boss = G_Spawn();
 		vec3_t spawnPos;
 		spawnPos[0] = -510.75;

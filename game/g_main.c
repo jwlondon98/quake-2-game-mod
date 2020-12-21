@@ -339,68 +339,68 @@ void ExitLevel (void)
 	{
 		ent = g_edicts + 1 + i;
 
-		if (ent->classname == "player")
-		{
-			numKills = ent->kills;
-			timeTaken = ent->timeTaken;
-			totalPoints = ent->points;
-			gi.dprintf("\n%s %i %s %i", "Total Player Kills: ", numKills, " Total Kill Points: ", totalPoints);
-			//gi.dprintf("\n%s %f %s", "Total Time Taken: ", timeTaken, "\n\n");
+		//if (ent->classname == "player")
+		//{
+		//	numKills = ent->kills;
+		//	timeTaken = ent->timeTaken;
+		//	totalPoints = ent->points;
+		//	gi.dprintf("\n%s %i %s %i", "Total Player Kills: ", numKills, " Total Kill Points: ", totalPoints);
+		//	//gi.dprintf("\n%s %f %s", "Total Time Taken: ", timeTaken, "\n\n");
 
-			if (level.levelNum == 0)
-			{
-				numEnemyKillsOnPace = 10;
+		//	if (level.levelNum == 0)
+		//	{
+		//		numEnemyKillsOnPace = 10;
 
-				// rating by points
-				A = 2000;
-				B = 1400;
-				C = 700;
-				D = 400;
+		//		// rating by points
+		//		A = 2000;
+		//		B = 1400;
+		//		C = 700;
+		//		D = 400;
 
-				// calc points to add based on time taken
-				if (timeTaken <= 40)
-					timeTakenPoints = 1000;
-				else if (timeTaken > 40 && timeTaken <= 45)
-					timeTakenPoints =  700;
-				else if (timeTaken > 45 && timeTaken <= 50)
-					timeTakenPoints = 400;
-				else if (timeTaken > 50)
-					timeTakenPoints = 100;
-				gi.dprintf("\n%s %f %s %i", "Time Taken: ", timeTaken, "Points added: ", timeTakenPoints);
+		//		// calc points to add based on time taken
+		//		if (timeTaken <= 40)
+		//			timeTakenPoints = 1000;
+		//		else if (timeTaken > 40 && timeTaken <= 45)
+		//			timeTakenPoints =  700;
+		//		else if (timeTaken > 45 && timeTaken <= 50)
+		//			timeTakenPoints = 400;
+		//		else if (timeTaken > 50)
+		//			timeTakenPoints = 100;
+		//		gi.dprintf("\n%s %f %s %i", "Time Taken: ", timeTaken, "Points added: ", timeTakenPoints);
 
-				// add kill all enemies on pace bonus points
-				if (numKills == numEnemyKillsOnPace)
-				{
-					gi.dprintf("\n%s", "All Level Entities Killed Bonus. 500 points added.");
-					killEnemiesBonusPoints = 500;
-				}
-				else
-				{
-					gi.dprintf("\n%s", "Not all level enties killed. No points added.");
-					killEnemiesBonusPoints = 0;
-				}
+		//		// add kill all enemies on pace bonus points
+		//		if (numKills == numEnemyKillsOnPace)
+		//		{
+		//			gi.dprintf("\n%s", "All Level Entities Killed Bonus. 500 points added.");
+		//			killEnemiesBonusPoints = 500;
+		//		}
+		//		else
+		//		{
+		//			gi.dprintf("\n%s", "Not all level enties killed. No points added.");
+		//			killEnemiesBonusPoints = 0;
+		//		}
 
-				// kill boss bonus points
-				killBossBonusPoints = 0;
-				gi.dprintf("\n%s", "No boss kill. No points added.");
+		//		// kill boss bonus points
+		//		killBossBonusPoints = 0;
+		//		gi.dprintf("\n%s", "No boss kill. No points added.");
 
-				// add total points
-				totalPoints = totalPoints + timeTakenPoints + killEnemiesBonusPoints + killBossBonusPoints;
+		//		// add total points
+		//		totalPoints = totalPoints + timeTakenPoints + killEnemiesBonusPoints + killBossBonusPoints;
 
-				// calc rating based on total points
-				if (totalPoints >= 2000)
-					rating = 'A';
-				else if (totalPoints >= 1400 && totalPoints < 2000)
-					rating = 'B';
-				else if (totalPoints >= 700 && totalPoints < 1400)
-					rating = 'C';
-				else if (totalPoints >= 400 && totalPoints < 700)
-					rating = 'D';
-				else if (totalPoints < 400)
-					rating = 'F';
-				gi.dprintf("\n%s %c %s %i", "Rating: ", rating, "Total points: ", totalPoints);
-			}
-		}
+		//		// calc rating based on total points
+		//		if (totalPoints >= 2000)
+		//			rating = 'A';
+		//		else if (totalPoints >= 1400 && totalPoints < 2000)
+		//			rating = 'B';
+		//		else if (totalPoints >= 700 && totalPoints < 1400)
+		//			rating = 'C';
+		//		else if (totalPoints >= 400 && totalPoints < 700)
+		//			rating = 'D';
+		//		else if (totalPoints < 400)
+		//			rating = 'F';
+		//		gi.dprintf("\n%s %c %s %i", "Rating: ", rating, "Total points: ", totalPoints);
+		//	}
+		//}
 	}
 
 	gi.dprintf("\n\n\n");
@@ -411,7 +411,6 @@ void ExitLevel (void)
 	level.exitintermission = 0;
 	level.intermissiontime = 0;
 	ClientEndServerFrames ();
-	level.levelNum++;
 
 	// clear some things before going to next level
 	for (i=0 ; i<maxclients->value ; i++)

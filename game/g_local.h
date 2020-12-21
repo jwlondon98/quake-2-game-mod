@@ -695,6 +695,7 @@ void M_CatagorizePosition (edict_t *ent);
 qboolean M_CheckAttack (edict_t *self);
 void M_FlyCheck (edict_t *self);
 void M_CheckGround (edict_t *ent);
+void UpdatePlayerScore(edict_t *ent);
 
 //
 // g_misc.c
@@ -868,6 +869,29 @@ typedef struct
 	qboolean	spectator;			// client is a spectator
 
 	int			numBossesKilled;
+	int			currLevelNum;
+
+	// level 1 highscores
+	int			level1hs1;
+	int			level1hs2;
+	int			level1hs3;
+	int			level1hs4;
+	int			level1hs5;
+
+	// level 2 highscores
+	int			level2hs1;
+	int			level2hs2;
+	int			level2hs3;
+	int			level2hs4;
+	int			level2hs5;
+
+	// level 3 highscores
+	int			level3hs1;
+	int			level3hs2;
+	int			level3hs3;
+	int			level3hs4;
+	int			level3hs5;
+
 } client_persistant_t;
 
 // client data that stays across deathmatch respawns
@@ -898,6 +922,7 @@ struct gclient_s
 	qboolean	showinventory;		// set layout stat
 	qboolean	showhelp;
 	qboolean	showhelpicon;
+	qboolean	showProjectUI;
 
 	int			ammo_index;
 

@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 #include "g_local.h"
+#include <stdio.h>
 
 
 
@@ -335,6 +336,62 @@ void HelpComputer (edict_t *ent)
 	gi.unicast (ent, true);
 }
 
+void ShowScoreUI(edict_t *ent)
+{
+	char	string[2048];
+
+	char* username = getenv("USERNAME");
+
+	int levelNum = level.levelNum;
+	int hs1, hs2, hs3, hs4, hs5;
+
+	if (levelNum == 0)
+	{
+		hs1 = ent->client->pers.level1hs1;
+		hs2 = ent->client->pers.level1hs2;
+		hs3 = ent->client->pers.level1hs3;
+		hs4 = ent->client->pers.level1hs4;
+		hs5 = ent->client->pers.level1hs5;
+	}
+	else if (levelNum == 1)
+	{
+		hs1 = ent->client->pers.level2hs1;
+		hs2 = ent->client->pers.level2hs2;
+		hs3 = ent->client->pers.level2hs3;
+		hs4 = ent->client->pers.level2hs4;
+		hs5 = ent->client->pers.level2hs5;
+	}
+	else if (levelNum == 2)
+	{
+		hs1 = ent->client->pers.level3hs1;
+		hs2 = ent->client->pers.level3hs2;
+		hs3 = ent->client->pers.level3hs3;
+		hs4 = ent->client->pers.level3hs4;
+		hs5 = ent->client->pers.level3hs5;
+	}
+
+	// send the layout
+	Com_sprintf(string, sizeof(string),
+		"xv 32 yv 8 picn inventory "			// background
+		"xv 0 yv 30 cstring2 \"LEVEL %i SCORES\" "
+		"xv 0 yv 45 cstring2 \"\" "
+		"xv 0 yv 45 cstring2 \"\" "
+		"xv 0 yv 60 cstring2 \"%s  ||  %i\" "
+		"xv 0 yv 75 cstring2 \"%s  ||  %i\" "
+		"xv 0 yv 90 cstring2 \"%s  ||  %i\" "
+		"xv 0 yv 105 cstring2 \"%s  ||  %i\" "
+		"xv 0 yv 120 cstring2 \"%s  ||  %i\" ",
+		level.levelNum,
+		username, hs1,
+		username, hs2, 
+		username, hs3, 
+		username, hs4, 
+		username, hs5);
+
+	gi.WriteByte(svc_layout);
+	gi.WriteString(string);
+	gi.unicast(ent, true);
+}
 
 /*
 ==================
@@ -364,6 +421,23 @@ void Cmd_Help_f (edict_t *ent)
 	ent->client->showhelp = true;
 	ent->client->pers.helpchanged = 0;
 	HelpComputer (ent);
+}
+
+void Cmd_ProjectUI_f(edict_t *ent)
+{
+	ent->client->showinventory = false;
+	ent->client->showscores = false;
+
+	if (ent->client->showhelp && (ent->client->pers.game_helpchanged == game.helpchanged))
+	{
+		ent->client->showhelp = false;
+		return;
+	}
+
+	ent->client->showhelp = true;
+	ent->client->pers.helpchanged = 0;
+	ShowScoreUI(ent);
+	gi.dprintf("HELLO");
 }
 
 
