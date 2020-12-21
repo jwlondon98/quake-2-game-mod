@@ -289,7 +289,7 @@ void tank_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, 
 
 void tank_pain (edict_t *self, edict_t *other, float kick, int damage)
 {
-	gi.dprintf("\nTANK BOSS HEALTH: %i\n", self->health);
+	gi.dprintf("\nBOSS 2 HEALTH: %i\n", self->health);
 
 	if (self->health <= 0)
 		tank_die(self, other, other, 1000, self->s.origin);
@@ -809,7 +809,7 @@ void tank_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage,
 {
 	int		n;
 
-	gi.dprintf("\nTANK BOSS DEAD\n");
+	gi.dprintf("\nBOSS 2 DEAD\n");
 	inflictor->client->pers.numBossesKilled++;
 	UpdatePlayerScore(inflictor);
 
@@ -941,7 +941,7 @@ void SP_boss_tank(edict_t *self)
 	gi.soundindex("tank/tnkatk2e.wav");
 	gi.soundindex("tank/tnkatck3.wav");
 
-	self->health = 10;
+	self->health = 40;
 	self->gib_health = -225;
 
 	self->mass = 500;

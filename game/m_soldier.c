@@ -1288,7 +1288,7 @@ void boss1_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damage,
 {
 	int		n;
 
-	gi.dprintf("BOSS 1 DEAD");
+	gi.dprintf("\nBOSS 1 DEAD\n");
 	inflictor->client->pers.numBossesKilled++;
 	UpdatePlayerScore(inflictor);
 
@@ -1484,7 +1484,7 @@ void SP_monster_solider_boss(edict_t *self)
 	gi.soundindex("soldier/solatck2.wav");
 
 	self->s.skinnum = 0;
-	self->health = 10;
+	self->health = 20;
 	self->max_health = 10;
 	self->gib_health = -30;
 }

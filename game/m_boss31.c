@@ -416,6 +416,8 @@ void jorg_attack1(edict_t *self)
 void jorg_pain (edict_t *self, edict_t *other, float kick, int damage)
 {
 
+	gi.dprintf("\nBOSS 3 HEALTH: %i\n", self->health);
+
 	if (self->health < (self->max_health / 2))
 			self->s.skinnum = 1;
 	
@@ -588,6 +590,9 @@ void jorg_dead (edict_t *self)
 
 void jorg_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
 {
+	gi.dprintf("\nBOSS 3 DEAD\n");
+	UpdatePlayerScore(inflictor);
+
 	gi.sound (self, CHAN_VOICE, sound_death, 1, ATTN_NORM, 0);
 	self->deadflag = DEAD_DEAD;
 	self->takedamage = DAMAGE_NO;
@@ -695,11 +700,7 @@ void MakronPrecache (void);
 */
 void SP_monster_jorg (edict_t *self)
 {
-	if (deathmatch->value)
-	{
-		G_FreeEdict (self);
-		return;
-	}
+	gi.dprintf("\nBOSS 3 SPAWNED\n");
 
 	sound_pain1 = gi.soundindex ("boss3/bs3pain1.wav");
 	sound_pain2 = gi.soundindex ("boss3/bs3pain2.wav");
@@ -725,7 +726,7 @@ void SP_monster_jorg (edict_t *self)
 	VectorSet (self->mins, -80, -80, 0);
 	VectorSet (self->maxs, 80, 80, 140);
 
-	self->health = 3000;
+	self->health = 500;
 	self->gib_health = -2000;
 	self->mass = 1000;
 
